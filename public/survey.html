@@ -1,15 +1,3 @@
-<?php
-
-// If we're blending php into html then we want to put things in HTML view
-
-echo "<p>POST:</p>";
-var_dump($_POST);
-
-echo "<p>GET:</p>";
-var_dump($_GET);
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +50,7 @@ var_dump($_GET);
             <p>
               
         
-
+    
         <h2> What is the Capital of Texas? </h2>
             <p>Select the Capital of Texas</p>
             <label for="q1a">
@@ -86,37 +74,9 @@ var_dump($_GET);
                 Washington on the Brazos
             </label>
             <br><br>
-            
-        <h2> Select Your Transmission Type </h2>
-        <label for="transmission">Select your transmission type: </label>
-            <select id="transmission" name="transmission">
-            <option value="automatic">Automatic</options>
-            <option value="manual">Manual</option>
-            <option selected>Manual</option>
-            </select>  
-    <br><br>
-        <label for="os">What operating systems have you used? </label>
-        <select id="os" name="os[]" multiple>
-                <option value="ubuntu">Ubuntu</option>
-                <option value="centos">CentOS</option>
-                <option value="Raspbian">Raspbian Raspberry Pi</option>
-                <option value="osx">OS X</option>
-                <option value="windows">Windows</option>
-                </select>
-        <br>
-    <button type"submit">Send</button>
-    </form>
-
-    <h2> Select Testing </h2>
-    <form method="POST" action"">
-        <p>
-            <label for="getting_it">Getting It?</label>
-            <select id="getting_it" name="getting_it">
-                <option value="0"> NO! </option>
-                <option selected value="1"> YES </option>
-            </select>
-        <button type"submit">Send</button>
-
+            <button type"submit">Send</button>
+            <br><br>
+            </form>
 
 
 </body>
