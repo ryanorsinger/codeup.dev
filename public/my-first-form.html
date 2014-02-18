@@ -20,15 +20,18 @@
             </p>
         </form> -->
 
-        <br><br><br>
+        <br>
 
-        <form method="GET" action"http://requestb.in/t35bnqt3"
+        <form method="POST" action="http://requestb.in/t35bnqt3">
             <p>
-                <label for="recipient">Send email to:</label>
-                <input type="text" id="recipient" value="" placeholder="Enter Recipients">
-                <label for"=text">From:</label>
-                <input type="tex" id="from" name="from" placeholder="Enter sender name">
+                <label for="text">Send email to:</label>
+                <input type="text" id="recipient" name="to" placeholder="Enter Recipients">
+                
+                <label for="text">From:</label>
+                <input type="text" id="from" value="" name="from" placeholder="Enter sender name">
+                
                 <br><br>
+                
                 <label for="subject">Subject</label>
                 <br>
                 <textarea placeholder="type subject here" name="subject" id="subject" value="" rows="1" cols="20"></textarea>
@@ -38,7 +41,7 @@
                 <textarea id="email_body" name="email_body" rows="5" cols="40" placeholder="Type your comments here"></textarea>
             </p>
             <p>
-                <button type"submit">Submit and Send</button>
+                <button type"submit">Send</button>
         </form>
 
 
