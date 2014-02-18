@@ -4,6 +4,9 @@
 </head>
 
 <body>
+  <!--   <h2> Checkbox test </h2>
+        <label for="mailing_list">
+            <input type="checkbox" id="mailing_list" name="mailing_list" value="yes">Sign me up for the mailing list</label> -->
 
     <h2> User Login </h2>
         <form method="GET" action="http://requestb.in/t35bnqt3">
@@ -14,15 +17,20 @@
                 <label for="password">Password</label>
                 <input id="username" name="username" type="text" placeholder="enter your password">
             </p>
-            <p>
+        </form>
 
-                <button type="submit">Login</button>
-            </p>
+        <form method="GET" action="http://requestb.in/t35bnqt3">
+            <p>What operating systems have you used?</p>
+            <label for="os1"><input type="checkbox" id="os1" name="os[]" value="linux"> Linux</label>
+            <label for="os2"><input type="checkbox" id="os2" name="os[]" value="osx"> OS X</label>
+            <label for="os3"><input type="checkbox" id="os3" name="os[]" value="windows"> Windows</label>
+
+            <button type"submit">Send</button>
         </form>
 
         <br>
         <h2> Compose an Email: </h2> 
-        <form method="POST" action="http://requestb.in/t35bnqt3">
+        <form method="GET" action="http://requestb.in/t35bnqt3">
             <p>
                 <label for="text">Send email to:</label>
                 <input type="text" id="recipient" name="to" placeholder="Enter Recipients">
@@ -44,7 +52,27 @@
                 <button type"submit">Send</button>
         </form>
 
-
+        <h2> What is the Capital of Texas? </h2>
+            <p>Select the Capital of Texas</p>
+            <label for="q1">
+                <input type="radio" id="q1" name="q" value="washington">
+                Washington on the Brazos
+            <label for="q1a">
+                <input type="radio" id="q1a" name="q1" value="houston">
+                Houston
+            </label>
+            <label for="q1b">
+                <input type="radio" id="q1b" name="q1" value="dallas">
+                Dallas
+            </label>
+            <label for="q1c">
+                <input type="radio" id="q1c" name="q1" value="austin">
+                Austin
+            </label>
+            <label for="q1d">
+                <input type="radio" id="q1d" name="q1" value="san antonio">
+                San Antonio
+            </label>
 
 
 </body>
