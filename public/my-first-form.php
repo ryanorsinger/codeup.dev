@@ -1,5 +1,13 @@
 <?php
 
+// If we're blending php into html then we want to put things in HTML view
+
+echo "<p>POST:</p>";
+var_dump($_POST);
+
+echo "<p>GET:</p>";
+var_dump($_GET);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +22,7 @@
             <input type="checkbox" id="mailing_list" name="mailing_list" value="yes">Sign me up for the mailing list</label> -->
 
     <h2> User Login </h2>
-        <form method="GET" action="http://requestb.in/t35bnqt3">
+        <form method="POST" action="">
             <p>
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" placeholder="enter your username">
@@ -52,7 +60,7 @@
                 <textarea id="email_body" name="email_body" rows="5" cols="40" placeholder="Type your comments here"></textarea>
             </p>
             <p>
-                <button type"submit">Send</button>
+              
         
 
         <h2> What is the Capital of Texas? </h2>
