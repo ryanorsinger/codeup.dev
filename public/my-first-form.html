@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +10,7 @@
             <input type="checkbox" id="mailing_list" name="mailing_list" value="yes">Sign me up for the mailing list</label> -->
 
     <h2> User Login </h2>
-        <form method="GET" action="http://requestb.in/t35bnqt3">
+        <form method="POST" action="">
             <p>
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" placeholder="enter your username">
@@ -24,9 +20,9 @@
             </p>
   
             <p>What operating systems have you used?</p>
-            <label for="os1"><input type="checkbox" id="os1" name="os1" value="linux"> Linux</label>
-            <label for="os2"><input type="checkbox" id="os2" name="os2" value="osx"> OS X</label>
-            <label for="os3"><input type="checkbox" id="os3" name="os3" value="windows"> Windows</label>
+            <label for="os1"><input type="checkbox" id="os1" name="os[]" value="linux"> Linux</label>
+            <label for="os2"><input type="checkbox" id="os2" name="os[]" value="osx"> OS X</label>
+            <label for="os3"><input type="checkbox" id="os3" name="os[]" value="windows"> Windows</label>
 
             
       
@@ -52,14 +48,11 @@
                 <textarea id="email_body" name="email_body" rows="5" cols="40" placeholder="Type your comments here"></textarea>
             </p>
             <p>
-                <button type"submit">Send</button>
+              
         
 
         <h2> What is the Capital of Texas? </h2>
             <p>Select the Capital of Texas</p>
-            <label for="q1">
-                <input type="radio" id="q1" name="q" value="washington">
-                Washington on the Brazos
             <label for="q1a">
                 <input type="radio" id="q1a" name="q1" value="houston">
                 Houston
@@ -75,11 +68,43 @@
             <label for="q1d">
                 <input type="radio" id="q1d" name="q1" value="san antonio">
                 San Antonio
+                </label>
+            <label for="q1">
+                <input type="radio" id="q1" name="q" value="washington">
+                Washington on the Brazos
             </label>
             <br><br>
-            <button type"submit">Send</button>
-            <br><br>
-            </form>
+            
+        <h2> Select Your Transmission Type </h2>
+        <label for="transmission">Select your transmission type: </label>
+            <select id="transmission" name="transmission">
+            <option value="automatic">Automatic</options>
+            <option value="manual">Manual</option>
+            <option selected>Manual</option>
+            </select>  
+    <br><br>
+        <label for="os">What operating systems have you used? </label>
+        <select id="os" name="os[]" multiple>
+                <option value="ubuntu">Ubuntu</option>
+                <option value="centos">CentOS</option>
+                <option value="Raspbian">Raspbian Raspberry Pi</option>
+                <option value="osx">OS X</option>
+                <option value="windows">Windows</option>
+                </select>
+        <br>
+    <button type"submit">Send</button>
+    </form>
+
+    <h2> Select Testing </h2>
+    <form method="GET" action"">
+        <p>
+            <label for="getting_it">Getting It?</label>
+            <select id="getting_it" name="getting_it">
+                <option value="0"> NO! </option>
+                <option selected value="1"> YES </option>
+            </select>
+        <button type"submit">Send</button>
+
 
 
 </body>

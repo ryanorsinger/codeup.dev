@@ -108,7 +108,7 @@ var_dump($_GET);
     </form>
 
     <h2> Select Testing </h2>
-    <form method="POST" action"">
+    <form method="GET" action"">
         <p>
             <label for="getting_it">Getting It?</label>
             <select id="getting_it" name="getting_it">
