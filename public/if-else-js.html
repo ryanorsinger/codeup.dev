@@ -5,6 +5,14 @@
 </head>
 
 <body>
+	<h1> This is the if-else experiment with inline JS on an HTML document </h1>
+	<p>
+	<br>
+	<h2> Please view source or bring up the console to see the results </h2>
+	<br>
+	<p>
+	<h3> Should I use the message variable? </h3>
+
 	<script>
 	console.log('Hello from the inline JavaScript!');
 	// ignore these lines for now
@@ -24,8 +32,12 @@
 		console.log("GREENS GREENS, EAT YOUR GREENS!");
 	} else if (color == 'blue') {
 		console.log("Blue Blue Christmas.... \n Sometimes, I get the blues. Other times, the blues get me.\n");
-	} 
+	} else { 
+		console.log ("I don't know anything about the color, " + color);
+	}
 
+
+	(color == favorite) ? console.log ("The inline JavaScript guessed my favorite color!\n") : console.log("the script did NOT guess my favorite color");
 
 	// todo: Create a block of if/else statements to check for every color except indigo and violet.
 	// todo: When a color is encountered log a message that tells the color, and an object of that color.
