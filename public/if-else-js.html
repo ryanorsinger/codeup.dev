@@ -1,0 +1,42 @@
+
+<html>
+<head>
+	<title> If-Else-JS.html </title>
+</head>
+
+<body>
+	<script>
+	console.log('Hello from the inline JavaScript!');
+	// ignore these lines for now
+	// just know that the variable 'color' will end up with a random value from the colors array
+	var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+	var color = colors[Math.floor(Math.random()*colors.length)];
+
+	var favorite = 'blue'; 
+
+	if (color == 'red') {
+		console.log("Red is the color of my true love's hair, in the morning\n");
+	} else if (color == 'orange') {
+		console.log("Orange you glad I didn't say BANANA!\n");
+	} else if (color == 'yellow') {
+		console.log("Yellow is an anxiety producing color. It helps with sales\n");
+	} else if (color == 'green') {
+		console.log("GREENS GREENS, EAT YOUR GREENS!");
+	} else if (color == 'blue') {
+		console.log("Blue Blue Christmas.... \n Sometimes, I get the blues. Other times, the blues get me.\n");
+	} 
+
+
+	// todo: Create a block of if/else statements to check for every color except indigo and violet.
+	// todo: When a color is encountered log a message that tells the color, and an object of that color.
+	//       Example: Blue is the color of the sky.
+
+	// todo: Have a final else that will catch indigo and violet.
+	// todo: In the else, log: I don't know anything by that color.
+
+	// todo: Using the ternary operator, conditionally log a statement that says whether the random color matches your favorite color.
+
+	</script>
+</body>
+</html>
+
