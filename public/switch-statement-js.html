@@ -10,29 +10,65 @@
 
 	<script>
 
-	var whatAmsI = [true, 2, "happy happy joy joy", null];
-	var whatAmI = whatAmsI[Math.floor(Math.random()*whatAmsI.length)];
+// ignore these lines for now
+// just know that the variable 'color' will end up with a random value from the colors array
 
-	switch(typeof whatAmI) {
-		case "boolean":
-			console.log("You are a boolean.");
-			break;
-		case "number":
-			console.log("You are a number.");
-			break;
-		case "string":
-			console.log("You are a string.");
-			break;
-		case "function":
-		case "object":
-			console.log("You are an object. ");
-			break;
-		case "undefined":
-			console.log("You are undefined");
-			break;
-		default:
-			console.log("I have no clue.");
-	}
+var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+var color = colors[Math.floor(Math.random()*colors.length)];
+
+switch (color) {
+	case 'red':
+		console.log("RED IS REDRUM RED IS REDRUM");
+		break;
+	case 'orange':
+		console.log("ORANGE YOU GLAD I DIDN'T SAY BANANA");
+		break;
+	case 'yellow':
+		console.log("YELLOW IS THE COLOR OF MY TRUE LOVE'S HAIR, IN THE MORNING... WHEN WE RISE");
+		break;
+	case 'green':
+		console.log("Eat your greens! Eat your Greens!!");
+		break;
+	case 'blue':
+		console.log("Blue Moon of Kentucky, keep on shining!");
+		break;
+	default:
+		console.log("I have no clue about " + color);
+}
+
+    // todo: create a case statement that will handle every color except indigo and violet
+    // todo: when a color is encountered log a message that tells the color, and an object of that color
+    //       example: Blue is the color of the sky.
+
+    // todo: create a default case that will catch indigo and violet
+    // todo: for the default case, log: I don't know anything by that color.
+
+
+
+
+	// var whatAmsI = [true, 2, "happy happy joy joy", null];
+	// var whatAmI = whatAmsI[Math.floor(Math.random()*whatAmsI.length)];
+
+	// switch(typeof whatAmI) {
+	// 	case "boolean":
+	// 		console.log("You are a boolean.");
+	// 		break;
+	// 	case "number":
+	// 		console.log("You are a number.");
+	// 		break;
+	// 	case "string":
+	// 		console.log("You are a string.");
+	// 		break;
+	// 	case "function":
+	// 	case "object":
+	// 		console.log("You are an object. ");
+	// 		break;
+	// 	case "undefined":
+	// 		console.log("You are undefined");
+	// 		break;
+	// 	default:
+	// 		console.log("I have no clue.");
+	// }
 	
 // Rewrite this with a switch because it's easier to read and lazier to write!
 
