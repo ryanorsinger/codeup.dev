@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Switch Statement JS </title>
+</head>
+
+<body>
+	<h1> This is the Switch Statement JS example </h1>
+	
+
+	<script>
+
+	var whatAmsI = [true, 2, "happy happy joy joy", null];
+	var whatAmI = whatAmsI[Math.floor(Math.random()*whatAmsI.length)];
+
+	switch(typeof whatAmI) {
+		case "boolean":
+			console.log("You are a boolean.");
+			break;
+		case "number":
+			console.log("You are a number.");
+			break;
+		case "string":
+			console.log("You are a string.");
+			break;
+		case "function":
+		case "object":
+			console.log("You are an object. ");
+			break;
+		case "undefined":
+			console.log("You are undefined");
+			break;
+		default:
+			console.log("I have no clue.");
+	}
+	
+// Rewrite this with a switch because it's easier to read and lazier to write!
+
+	// if (typeof whatAmI === "boolean") {
+	// 	console.log("You are a boolean.");
+	// } else if (typeof whatAmI === "number") {
+	// 	console.log("You are a number.");
+	// } else if (typeof whatAmI === "string") {
+	// 	console.log("You are a string.");
+	// } else if (typeof whatAmI === "function" || typeof whatAmI === "object") {
+	// 	console.log("You are an object.");
+	// } else if (typeof whatAmI === "undefined") {
+	// 	console.log("You are undefined");
+	// } else {
+	// 	console.log("I have no clue.");
+	// }	
+
+
+
+
+
+	</script>
+</body>
+</html>
+
