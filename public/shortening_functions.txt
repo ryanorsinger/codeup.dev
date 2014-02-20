@@ -1,0 +1,30 @@
+
+function isEven(input) {
+    var remainder = input % 2;
+    if (remainder === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+how to shorten this?
+function isEven(input) {
+    var remainder = input % 2;
+    if (remainder === 0) {
+        return true;
+    } return false;
+}
+
+//how can we shorten this more?
+function isEven(input) {
+    (input % 2 === 0) ? true : false;
+}
+
+
+
+how can we get this even shorter?
+
+function isEven(input) {
+		return (input % 2 ===0);
+}

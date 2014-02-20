@@ -10,13 +10,18 @@
 		<script>
 
 // Create an array of 4 names using literal array notation, in a variable called 'names'.
-		var names = ['Ben', 'Mario', 'Joseph', 'Alex'];
+		var bands = ['Captain Beefheart', 'Frank Zappa and the Mothers', 'Kraftwerk', 'DEVO', 'Waylon Jennings', 'Junior Brown', 'GWAR', 'Depeche Mode', 'Edgard Varese', 'John Cage', 'Brian Eno', 'Jerry Waddel Band'];
+
+		bands.forEach(function(element, index, array) {
+			console.log('The band at index ' + index + ' is ' + element);
+		});
 
 // Create a log statement that will log the number of elements in the names array.
-		console.log('There are ' + names.length + ' names in the array');
+		console.log("\n\n\n");
+		console.log('There are ' + bands.length + ' bands in my favorite list of bands');
 
-		for (i = 0; i < names.length; i++) {
-			console.log('The band at index ' + i + ' is ' + names[i]);
+		for (i = 0; i < bands.length; i++) {
+			console.log('The band at index ' + i + ' is ' + bands[i]);
 		}
 
 // Create log statements that will print each of the names array elements individually.
