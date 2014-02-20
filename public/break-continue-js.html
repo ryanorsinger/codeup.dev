@@ -8,18 +8,41 @@
 	<h1> This page is for testing inline JS with Break and Continue </h1>
 
 		<script>
-		for (var i = 1; i < 100; i++) {
+			var randNum = Math.floor((Math.random()*50)+1);
+			while (randNum % 2 == 0) {
+				var randNum = Math.floor((Math.random()*50)+1);
+				if (randNum % 2 !=0) {
+					break;
+					}
+			}
+			console.log("Random odd number to skip is " + randNum);
+			for (var i = 1; i < 50; i += 2) {
+				if (i == randNum) { 
+					console.log ("Yipes! Skipping number " + randNum);
+				} else if (i != randNum) {
+					console.log("Here is an odd number: " + i);
+				}
+			}
 
- 		   if (i % 2 == 0) {
-        // number isn't even
-        // odd numbers aren't as cool
-        // skip the rest of the loop and continue with the next iteration
-        console.log('Here is a lovely even number: ' + i);
-    	}
+				
 
-    // this is another way of doing it without the continue. I simply changed the if condition from FALSE to TRUE
-	}
+
+
+
+//this is the second example
+	// 	for (var i = 1; i < 100; i++) {
+
+ // 		   if (i % 2 == 0) {
+ //        // number isn't even
+ //        // odd numbers aren't as cool
+ //        // skip the rest of the loop and continue with the next iteration
+ //        console.log('Here is a lovely even number: ' + i);
+ //    	}
+
+ //    // this is another way of doing it without the continue. I simply changed the if condition from FALSE to TRUE
+	// }
 	 
+	 // this is the first example.
 // 	// don't worry about the details of this line
 // // just know that it genrates a random number between 1 and 100
 // 		var random = Math.floor((Math.random()*100)+1);
