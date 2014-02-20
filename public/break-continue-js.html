@@ -8,12 +8,12 @@
 	<h1> This page is for testing inline JS with Break and Continue </h1>
 
 		<script>
-			var randNum = Math.floor((Math.random()*50)+1);
+			var randNum = 0;
 			while (randNum % 2 == 0) {
-				var randNum = Math.floor((Math.random()*50)+1);
-				if (randNum % 2 !=0) {
-					break;
-					}
+			 	randNum = Math.floor((Math.random()*50)+1);
+				// Ben Batschelet suggests that the bottom two lines are redundant
+				// if (randNum % 2 !=0) {
+				// 	break;		
 			}
 			console.log("Random odd number to skip is " + randNum);
 			for (var i = 1; i < 50; i += 2) {
