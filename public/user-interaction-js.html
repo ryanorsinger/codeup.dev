@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Dialog Functions for User Interaction </title>
+</head>
+
+<body>
+	<h1> Dialog Functions for User Interaction  </h1>
+	<br>
+	<h2> We will do Alert </h2>
+	<br>
+	<h3> We will do conform and prompt the user for input </h3>
+
+	<script>
+
+	var response = prompt('What is your name?');
+	while (response === '') {
+		response = prompt('What is your name?');
+	}		
+	
+	alert("Welcome, " + response + "! We are happy to see you");
+
+	var pizzaResponse = prompt('Do you like pizza, ' + response + '?');
+	alert("Pizza Pizza Pizza !\n" + pizzaResponse + " is totally the right answer!");
+
+		// todo: Ask the user for their name.
+//       Keep asking if an empty input is provided.
+
+// todo: Show an alert message that welcomes the user based on their input.
+
+// todo: Ask the user if they like pizza.
+//       Based on their answer tell show a creative alert message.
+
+	</script>
+</body>
+</html>

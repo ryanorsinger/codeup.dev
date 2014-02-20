@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> This is the FUNCTIONS INTRO for JS Page </title>
+</head>
+
+<body>
+	<h1> This is the FUNCTIONS INTRO for JS Page </h1>
+	<br>
+	<h2> This covers basic function structure </h2>
+	<br>
+	<h3> Then it goes on to cover arguments and parameters </h3>
+
+	<script>
+
+		var myNameIs = 'Ryan';
+
+		function sayHello(name) {
+			console.log("hello, " + name + "!");
+		} 
+		sayHello(myNameIs);
+
+// just know that it genrates a random number between 1 and 100
+		var random = Math.floor((Math.random()*100)+1);
+
+		function isOdd(input) {
+			console.log('Random input is ' + input);
+			console.log(((input % 2) != 0) ? input + ' is odd' : input + ' is even.');
+		}
+
+		isOdd(random);
+
+// Create a function called 'isOdd' that takes a number as a parameter.
+// The function should use the ternary operator to log a message.
+// The log should tell the number passed in and whether it is odd or not.
+
+// todo: Call the function 'isOdd' passing the variable 'random' as a parameter.
+
+
+
+	</script>
+</body>
+</html>
