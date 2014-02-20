@@ -8,28 +8,39 @@
 	<h1> This page is for testing inline JS with Break and Continue </h1>
 
 		<script>
-	 
-	// don't worry about the details of this line
-// just know that it genrates a random number between 1 and 100
-		var random = Math.floor((Math.random()*100)+1);
-
-		console.log('Random stopping point is: ' + random);
-
 		for (var i = 1; i < 100; i++) {
 
-    		console.log('Loop counter is: ' + i);
-
-    		if (random == i) {
-
-        		console.log('We have reached the random stopping point: break!');
-
-        	// use the break keyword to exit from the while loop
-        	break;
-
-        // nothing after the break will get processed
-        	console.log('You will never see this line.');
-    		}
+ 		   if (i % 2 !== 0) {
+        // number isn't even
+        // odd numbers aren't as cool
+        // skip the rest of the loop and continue with the next iteration
+        continue;
     	}
+
+    	console.log('Here is a lovely even number: ' + i);
+	}
+	 
+// 	// don't worry about the details of this line
+// // just know that it genrates a random number between 1 and 100
+// 		var random = Math.floor((Math.random()*100)+1);
+
+// 		console.log('Random stopping point is: ' + random);
+
+// 		for (var i = 1; i < 100; i++) {
+
+//     		console.log('Loop counter is: ' + i);
+
+//     		if (random == i) {
+
+//         		console.log('We have reached the random stopping point: break!');
+
+//         	// use the break keyword to exit from the while loop
+//         	break;
+
+//         // nothing after the break will get processed
+//         	console.log('You will never see this line.');
+//     		}
+//     	}
 
 		</script>
 
