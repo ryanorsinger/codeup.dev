@@ -14,28 +14,13 @@
 
 	<script>
 
-
-		(function () {
-			var username = prompt("Greetings! What is your name, please?");
-				while (username == null || username === '') {
-					var username = prompt("What is your name, yo!");
-				}
-
-			console.log(username);
-		}());
-		
-// just know that it genrates a random number between 1 and 100
-		
-
-		(function isOdd() {
-			var input = Math.floor((Math.random()*100)+1);
-			console.log('Random input is ' + input);
-			console.log(((input % 2) != 0) ? input + ' is odd' : input + ' is even.');
+		(function funfunction() {
+			var iffeVar = "I'm local to the IIFE.";
 		}());
 
-		
+	alert(iffeVar);
 
-
+	
 // // declare a function that will be invoked immediately
 // // notice the parens surrounding the function. these are necessary
 // (function () {
@@ -45,6 +30,8 @@
 // // also notice the double parens after the closing curly brace. these invoke the function.
 
 // alert(iffeVar); // undefined
+
+
 	</script>
 </body>
 </html>
