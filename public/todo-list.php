@@ -1,10 +1,9 @@
 <?php
 
-echo "<p>GET:</p>";
-var_dump($_GET);
-
-echo "<p>POST:</p>";
-var_dump)($_POST);
+$sample_todos = ['Send my a copy of my resume to my inner circle',
+				'Call CPS to figure out the bill thing',
+				'Call ATT to figure out the bill thing',
+				'Start writing the layout and questions of my survey'];
 
 ?>
 <!DOCTYPE html>
@@ -20,10 +19,7 @@ var_dump)($_POST);
 
 <h1> TODO List: The Awesome To Do List of My Great Agenda! </h1>
 	<ul>
-		<li> Send my a copy of my resume to Donald </li>
-		<li> Call CPS to figure out the bill thing </li>
-		<li> Call ATT to figure out the bill thing </li>
-		<li> Start writing the layout and questions of my survey </li>
+		<php> foreach ($things as $things)
 	</ul>
 
 <!-- Below the unordered list, create a form that contains the necessary inputs 

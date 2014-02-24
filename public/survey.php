@@ -1,11 +1,9 @@
 <?php
 
-// If we're blending php into html then we want to put things in HTML view
-
 echo "<p>POST:</p>";
 var_dump($_POST);
 
-echo "<p>GET:</p>";
+echo "<p>GET:<p>";
 var_dump($_GET);
 
 ?>
@@ -13,15 +11,12 @@ var_dump($_GET);
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Awesome Page Awesome Page! </title>
+	<title> CodeUp Arches Cohort Survey </title>
 </head>
-
 <body>
-  <!--   <h2> Checkbox test </h2>
-        <label for="mailing_list">
-            <input type="checkbox" id="mailing_list" name="mailing_list" value="yes">Sign me up for the mailing list</label> -->
-
-    <h2> User Login </h2>
+	<h1> CodeUp Arches Cohort Survey </h1>
+	
+	 <h2> User Login </h2>
         <form method="POST" action="">
             <p>
                 <label for="username">Username</label>
@@ -37,6 +32,8 @@ var_dump($_GET);
             <label for="os3"><input type="checkbox" id="os3" name="os[]" value="windows"> Windows</label>
 
             
+   
+
         <br>
         <h2> Compose an Email: </h2> 
     
@@ -60,7 +57,7 @@ var_dump($_GET);
             <p>
               
         
-
+    
         <h2> What is the Capital of Texas? </h2>
             <p>Select the Capital of Texas</p>
             <label for="q1a">
@@ -84,37 +81,9 @@ var_dump($_GET);
                 Washington on the Brazos
             </label>
             <br><br>
-            
-        <h2> Select Your Transmission Type </h2>
-        <label for="transmission">Select your transmission type: </label>
-            <select id="transmission" name="transmission">
-            <option value="automatic">Automatic</options>
-            <option value="manual">Manual</option>
-            <option selected>Manual</option>
-            </select>  
-    <br><br>
-        <label for="os">What operating systems have you used? </label>
-        <select id="os" name="os[]" multiple>
-                <option value="ubuntu">Ubuntu</option>
-                <option value="centos">CentOS</option>
-                <option value="Raspbian">Raspbian Raspberry Pi</option>
-                <option value="osx">OS X</option>
-                <option value="windows">Windows</option>
-                </select>
-        <br>
-    <button type"submit">Send</button>
-    </form>
-
-    <h2> Select Testing </h2>
-    <form method="GET" action"">
-        <p>
-            <label for="getting_it">Getting It?</label>
-            <select id="getting_it" name="getting_it">
-                <option value="0"> NO! </option>
-                <option selected value="1"> YES </option>
-            </select>
-        <button type"submit">Send</button>
-
+            <button type"submit">Send</button>
+            <br><br>
+            </form>
 
 
 </body>
