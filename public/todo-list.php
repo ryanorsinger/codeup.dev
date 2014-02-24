@@ -47,9 +47,15 @@
 			$results = array_push($items, $item);
 			save_file($filename, $items);
     	}
-
+		
+		if(isset($_GET['remove'])) {
+       		$itemID = ($_GET['remove']);
+			$results = unset($items, $itemID);
+			save_file($filename, $items);
+    	}
 
 	?>
+
 		
  
 	<ul>
@@ -59,7 +65,11 @@
 				<?php echo $item; ?>
 				<a href="?remove=<?php echo $key; ?>">Remove Item;</a></li>	
 				<?php } ?>
+
+
+
 	</ul>
+   
 
 
 
