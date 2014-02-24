@@ -17,12 +17,13 @@ var_dump($_GET);
 </head>
 
 <body>
+<?php session_start(); ?>
   <!--   <h2> Checkbox test </h2>
         <label for="mailing_list">
             <input type="checkbox" id="mailing_list" name="mailing_list" value="yes">Sign me up for the mailing list</label> -->
 
     <h2> User Login </h2>
-        <form method="POST" action="">
+        <form method="POST" action="">`
             <p>
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" placeholder="enter your username">
