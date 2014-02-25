@@ -66,7 +66,7 @@ $completed = array();
       
 
 
-    if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
+    if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0)  {
         // Set the destination directory for uploads
         $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
         // Grab the filename from the uploaded file by using basename
@@ -130,7 +130,7 @@ $completed = array();
         <form method="POST" enctype="multipart/form-data">
         <p>
             <label for="file1">File to upload: </label>
-
+            <br>
             <input type="file" id="file1" name="file1">
             <br>
             <input type="submit" value="Upload (Append)">
