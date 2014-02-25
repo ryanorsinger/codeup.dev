@@ -87,19 +87,4 @@ var_dump($_GET);
 
 
 </body>
-
-
-
-<!-- 
-Add inputs to the form that would allow a user to compose an email (to, from, subject, body, and a send button). Make sure to use the appropriate input types for each form element.
-
-Put headings above the forms. Label the first form as "User Login", and the second form as "Compose an Email".
- -->
-<!--  Type Attribute
-There are many types of form inputs in HTML. Since most HTML inputs use the same HTML element, <input>, the browser needs a way to distinguish the input type. This is achieved by specifying a type attribute as part of the <input> element. The types we will be covering in this unit are:
-
-submit
-text
-password
-checkbox
-radio -->
+</html>
