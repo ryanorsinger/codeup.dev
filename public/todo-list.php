@@ -2,8 +2,9 @@
 
 $filename = 'data/todo_list.txt';
 
-// set the items array to the file contents if the file exists, otherwise make it an empty array
+// set the items array to the file contents if the file exists, otherwise PDF_makespotcolor(p, spotname) it an empty array
 $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
+$completed = array();
 
 // this reads a file and returns the contents as an array
         function open_file($filename) {
@@ -23,8 +24,12 @@ $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
             fclose($handle);
         }
 
-// add new imported text file to old text file
-        
+// save completed items to a new file called completed.txt
+        function completed_items($completed) {
+            $handle = fopen('data/completed.txt', "a");
+            fwrite($handle, $completed);
+            fclose($handle);
+        }
 
 
 // reassign $items to equal the old todo list with the new items added merged to the bottom
@@ -40,16 +45,27 @@ $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
         }
 
 
-        // We use the GET here to remove the item
+        // It would be really really awesome to have the 'remove' set to 
+        // move the removed array element onto a new array called completed!
+        // We use the GET[remove] to get the element of the arry
+        // then I pass the $items[completed] element over to the completed items function
+
         if(!empty($_GET['remove'])) {
+            $completed = ($_GET['remove']);
+            completed_items($items[$completed] . "\n");
             array_splice($items, $_GET['remove'], 1);
             save_file($filename, $items);
             header("Location: todo-list.php");
-            die();
+            die();   
         }
 
+    if (count($_FILES) > 0 && $_FILES['file1']['type'] != 'text/plain') {
+        echo "<p>Your file must be a 'text/plain' file type</p>";
+        exit(1);
+    }
+      
 
-    // Verify there were uploaded files and no errors
+
     if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
         // Set the destination directory for uploads
         $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
@@ -73,17 +89,6 @@ $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
     }
 
 
-    // //  Check if we saved a file
-    // if (isset($saved_filename)) {
-    //     // If we did, show a link to the uploaded file
-    //     echo "<p>You can download your file <a href='/uploads/{$newfile}'>here</a>.</p>\n";
-    //     echo "\$newfile is $newfile \n";
-    //     echo "\$saved_filename is $saved_filename \n";
-        
-       
-    // }
-
-
     ?>
 
 
@@ -97,13 +102,14 @@ $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
     <body>
 
 
-<h1> TODO List: The Awesome To Do List of My Great Agenda! </h1>
+<h1> TODO List: </h1>
+<h2> The Awesome To Do List of My Great Agenda! </h2>
         
  
     <ul>        
         <?php
             foreach($items as $key => $item) {
-                 echo "<li>$item <a href='?remove=$key'>Remove Item</a></li>";
+                 echo "<li>$item <a href='?remove=$key'>Mark Item as Done</a></li>";
             }
         ?>
     </ul>
@@ -117,26 +123,24 @@ $items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
           <input id="new_todo" name="new_todo" type="text" autofocus="autofocus" placeholder="type new todo here">
         <br>
             <input type="submit" value="Add Item">
-        
-        
         </form>
 
 <h3> Upload a Text File </h3>
-   
 
         <form method="POST" enctype="multipart/form-data">
         <p>
             <label for="file1">File to upload: </label>
+
             <input type="file" id="file1" name="file1">
+            <br>
+            <input type="submit" value="Upload (Append)">
+           
         </p>
-        <p>
-            <input type="submit" value="Upload">
-    </p>
-</form>
+    </form>
 
+<img src="/img/pirate-todo" alt="YARRRR">
 
-        <img src="/img/pirate-todo" alt="YARRRR">
-
+    
 
     </body>
     
