@@ -3,11 +3,16 @@
 	var_dump($_POST);
 	var_dump($_GET);
 
-
 $filename = 'data/todo_list.txt';
 
-$items = open_file($filename);
+// if (filesize($filename) > 0) {
+// $items = open_file($filename);
+// } else {
+// 	$items = ();
+// }
 
+// set the items array to the file contents if the file exists, otherwise make it an empty array
+$items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
 
 // this reads a file and returns the contents as an array
 		function open_file($filename) {
@@ -29,7 +34,7 @@ $items = open_file($filename);
 
 
 		// check if $_POST['new_todo'] is set
-    	if(isset($_POST['new_todo'])) {
+    	if (!empty($_POST['new_todo'])) {
     		// echo "WE HAVE A NEW ITEM!";
     		$item = ($_POST['new_todo']);
 			$results = array_push($items, $item);
@@ -39,7 +44,7 @@ $items = open_file($filename);
 
 
     	// We use the GET here to remove the item
-		if(!empty($_GET)) {
+		if(!empty($_GET['remove'])) {
     		array_splice($items, $_GET['remove'], 1);
 			save_file($filename, $items);
 			header("Location: todo-list.php");
@@ -60,13 +65,12 @@ $items = open_file($filename);
 <h1> TODO List: The Awesome To Do List of My Great Agenda! </h1>
 		
  
-	<ul>
+	<ul>		
 		<?php
-			foreach($items as $key => $item) { ?>
-				<li>
-				<?php echo $item; ?>
-				<a href="?remove=<?php echo $key; ?>">Remove Item;</a></li>	
-				<?php } ?>
+    		foreach($items as $key => $item) {
+         		 echo "<li>$item <a href='?remove=$key'>Remove Item</a></li>";
+    		}
+		?>
 	</ul>
 
 
