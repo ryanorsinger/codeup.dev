@@ -1,0 +1,2 @@
+find out if this is a multidimensional associative array?
+why is this not outputting onto the page?
