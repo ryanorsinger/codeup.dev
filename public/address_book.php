@@ -1,35 +1,42 @@
 <?php
 
-$address_book = [
-    ['The White House', '1600 Pennsylvania Avenue NW', 'Washington', 'DC', '20500'],
-    ['Marvel Comics', 'P.O. Box 1527', 'Long Island City', 'NY', '11101'],
-    ['LucasArts', 'P.O. Box 29901', 'San Francisco', 'CA', '94129-0901']
-];
+$filename = 'address_book.csv';
+$address_book = readCSV($filename);
 
-// $address_book['input'][0] = 'name';
-// $address_book['input'][1] = 'address';
-// $address_book['input'][2] = 'city';
-// $address_book['input'][3] = 'state';
-// $address_book['input'][4] = 'zip';
+function writeCSV($filename, $rows) {
+  $handle = fopen($filename, "w");
+  foreach ($rows as $row) {
+    fputcsv($handle, $row);
+  }
+  fclose($handle);
+}
 
-// $handle = fopen('address_book.csv', 'w');
+readCSV($filename);
 
-// foreach ($address_book as $fields) {
-//     fputcsv($handle, $fields);
-// }
-// fclose($handle);
 
-var_dump($_POST);
+function readCSV($filename) {
+  $contents = [];
+  $handle = fopen($filename, "r");
+  while (($data = fgetcsv($handle)) !== FALSE) {
+    $contents[] = $data;
+  }
+  fclose($handle);
+  return $contents;
+}
 
-// // check if $_POST['new_todo'] is set
-//         if (!empty($_POST['field'])) {
-//             // strip tags and escape user input
-//             $item = htmlspecialchars(strip_tags($_POST['field']));
-//             $results = array_push($items, $item);
-//             save_file($filename, $items);
-//             header("Location: address_book.php");
-//         }
+// validation time!
+if (!empty($_POST)) {
 
+    $name = ($_POST['name']);
+    $address = ($_POST['address']);
+    $city = ($_POST['city']);
+    $state = ($_POST['state']);
+    $zip = ($_POST['zip']); 
+
+    $entry = [$name, $address, $city, $state, $zip];
+    array_push ($address_book, $entry);
+    writeCSV($filename, $address_book);
+}
 
 ?>
 
@@ -41,43 +48,55 @@ var_dump($_POST);
 </head>
 <body>
 	<h2> Welcome to the Address Book </h2>
-	<br>
-	<p>
-	</p>
-
-
-<table>
+     <table>
     <tr>
         <th>Name</th>
         <th>Address</th>
-        <th>City/th>
+        <th>City</th>
         <th>State</th>
         <th>Zipcode</th>
+
     </tr>
-    <tr>
-        <td>Row 1, Column 1</td>
-        <td>Row 1, Column 2</td>
-        <td>Row 1, Column 3</td>
-        <td>Row 1, Column 4</td>
-    </tr>
-    <tr>
-        <td>Row 2, Column 1</td>
-        <td>Row 2, Column 2</td>
-        <td>Row 2, Column 3</td>
-        <td>Row 2, Column 4</td>
-    </tr>
-</table>
+          <? foreach ($address_book as $entries) : ?>
+          <tr>
+            <? foreach ($entries as $fields) : ?>
+       
+            <td><?=$fields;?></td>
+              <? endforeach; ?>
+          </tr>
+          <? endforeach; ?>
+
     
+      </table>
+
+<br>
+
+</br>
 <h2> Enter Folks Into My Address Book </h2>
 
     <form method="POST" enctype="multipart/form-data" action="">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="name goes here">
+          <br>
+          <label for="address">Address</label>
+          <input id="address" name="address" type="text" placeholder="address goes here">
+          <br>
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" placeholder="name goes here">
+          <br>
+          <label for="state">State</label>
+          <input id="state" name="state" type="text"  placeholder="state goes here">
+          <br>
+          <label for="zip">Zipcode</label>
+          <input id="zip" name="zip" type="text" placeholder="zipcode goes here">
+          <br>
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="text"  placeholder="phone goes here">
 
-         <p>
-          <label for="new_todo">New To Do</label>
-          <input id="new_todo" name="new_todo" type="text" autofocus="autofocus" placeholder="type new todo here">
         <br>
-            <input type="submit" value="Add Item">
+            <input type="submit" value="Submit">
         </form>
+
 
 
 <!-- Marilyn Manson saw your address book!
