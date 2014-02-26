@@ -6,29 +6,29 @@ $address_book = [
     ['LucasArts', 'P.O. Box 29901', 'San Francisco', 'CA', '94129-0901']
 ];
 
-$address_book['input'][0] = 'name';
-$address_book['input'][1] = 'address';
-$address_book['input'][2] = 'city';
-$address_book['input'][3] = 'state';
-$address_book['input'][4] = 'zip';
+// $address_book['input'][0] = 'name';
+// $address_book['input'][1] = 'address';
+// $address_book['input'][2] = 'city';
+// $address_book['input'][3] = 'state';
+// $address_book['input'][4] = 'zip';
 
-$handle = fopen('address_book.csv', 'w');
+// $handle = fopen('address_book.csv', 'w');
 
-foreach ($address_book as $fields) {
-    fputcsv($handle, $fields);
-}
-fclose($handle);
+// foreach ($address_book as $fields) {
+//     fputcsv($handle, $fields);
+// }
+// fclose($handle);
 
+var_dump($_POST);
 
-
-// check if $_POST['new_todo'] is set
-        if (!empty($_POST['field'])) {
-            // strip tags and escape user input
-            $item = htmlspecialchars(strip_tags($_POST['field']));
-            $results = array_push($items, $item);
-            save_file($filename, $items);
-            header("Location: address_book.php");
-        }
+// // check if $_POST['new_todo'] is set
+//         if (!empty($_POST['field'])) {
+//             // strip tags and escape user input
+//             $item = htmlspecialchars(strip_tags($_POST['field']));
+//             $results = array_push($items, $item);
+//             save_file($filename, $items);
+//             header("Location: address_book.php");
+//         }
 
 
 ?>
