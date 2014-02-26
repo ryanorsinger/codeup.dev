@@ -1,7 +1,9 @@
 <?php
 
 $filename = 'address_book.csv';
-$address_book = readCSV($filename);
+$records = readCSV($filename);
+$errors = [];
+
 
 function writeCSV($filename, $rows) {
   $handle = fopen($filename, "w");
@@ -10,9 +12,6 @@ function writeCSV($filename, $rows) {
   }
   fclose($handle);
 }
-
-readCSV($filename);
-
 
 function readCSV($filename) {
   $contents = [];
@@ -24,18 +23,24 @@ function readCSV($filename) {
   return $contents;
 }
 
-// validation time!
-if (!empty($_POST)) {
 
-    $name = ($_POST['name']);
-    $address = ($_POST['address']);
-    $city = ($_POST['city']);
-    $state = ($_POST['state']);
-    $zip = ($_POST['zip']); 
 
-    $entry = [$name, $address, $city, $state, $zip];
-    array_push ($address_book, $entry);
-    writeCSV($filename, $address_book);
+// if the POST is not empty, then we can move on to validate the values.
+if (!empty($_POST)) { 
+  $entries = array();
+    foreach ($_POST as $key => $value) {
+      if(empty($value)) {
+          array_push($errors, "$key must contain data");
+        } else {
+          array_push($entries, htmlspecialchars(strip_tags($value)));
+        }
+      }
+
+    if (empty($errors)) {
+      // push the entries array onto the records array
+      array_push($records, $entries);
+      writeCSV($filename, $records);
+    } 
 }
 
 ?>
@@ -57,7 +62,7 @@ if (!empty($_POST)) {
         <th>Zipcode</th>
 
     </tr>
-          <? foreach ($address_book as $entries) : ?>
+          <? foreach ($records as $entries) : ?>
           <tr>
             <? foreach ($entries as $fields) : ?>
        
@@ -90,8 +95,8 @@ if (!empty($_POST)) {
           <label for="zip">Zipcode</label>
           <input id="zip" name="zip" type="text" placeholder="zipcode goes here">
           <br>
-          <label for="phone">Phone Number</label>
-          <input id="phone" name="phone" type="text"  placeholder="phone goes here">
+          <!-- <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="text"  placeholder="phone goes here"> -->
 
         <br>
             <input type="submit" value="Submit">
