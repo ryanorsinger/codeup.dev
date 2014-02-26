@@ -1,6 +1,6 @@
 <?php 
 
-var_dump($_FILES);
+//var_dump($_FILES[file1]);
 
 // Verify there were uploaded files and no errors
 if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
@@ -13,6 +13,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
     // This concatenates the directory with the filename and gives us a saved filename and path.
     // Move the file from the temp location to our uploads directory
     move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
+
 }
 
 
