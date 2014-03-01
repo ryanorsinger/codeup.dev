@@ -6,7 +6,7 @@ class AddressDataStore {
     public $entry = [];
     public $entries = array();
     public $contacts = [];
-    //public $rows = [];
+    public $rows = [];
 
 // set construct to get the file
    public function __construct($filename = '') {
@@ -28,9 +28,9 @@ class AddressDataStore {
 // save $rows to $this->filename CSV
    public function writeCSV($rows) { 
       $handle = fopen($this->filename, "w");
-      foreach ($rows as $row) {
-        fputcsv($handle, $row);
-      }
+     foreach ($rows as $row) {
+        fputcsv($handle, $rows);
+     }
       fclose($handle);
     }
     
@@ -45,17 +45,10 @@ class AddressDataStore {
     public function remove_Entry($key, $redirect = FALSE) {
       unset($this->entries[$key]);
       $this->writeCSV($rows);
-        if (is_string($redirect)) {
-          header("Location: $redirect");
-          exit(0);  
-    } 
-  //   // Merge a second AddressDataStore into this one
-  //   public function mergeAddressBooks(AddressDataStore $book) {
-
-  // }
-  }
+      }
 // end of class
 }
+
 
 // Create an instance of AddressDataStore called $address_book
 $address_book = new AddressDataStore();
@@ -68,6 +61,8 @@ $contacts = $address_book->readCSV();
 
 // set error messages to an empty array. 
 $errorMessages = [];
+
+var_dump($contacts);
 
 // Check for removal from list - process if exists
 if (isset($_GET['remove'])) {

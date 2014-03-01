@@ -1,3 +1,2 @@
 call John Banks
 send Gloria the contact info for the Bank estate settlement
-get Gloria a copy of the death certificiate
