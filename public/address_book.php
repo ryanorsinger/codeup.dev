@@ -1,10 +1,12 @@
 <?php
+
 class AddressDataStore {
     public $filename = '';
     public $contents = [];
     public $entry = [];
     public $entries = array();
-    public $records = [];
+    public $contacts = [];
+    //public $rows = [];
 
 // set construct to get the file
    public function __construct($filename = '') {
@@ -12,15 +14,19 @@ class AddressDataStore {
     }
 
 // Open $this->filename for reading return contents of the CSV
-    public function readCSV() {
+     public function readCSV() {
+        // Open $this->filename for reading 
+        $contents = [];
         $handle = fopen($this->filename, "r");
-        $contents = fread($handle, filesize($this->filename));
+        while (($data = fgetcsv($handle)) !== FALSE) {
+          $contents[] = $data;
+          }
         fclose($handle);
         return $contents;
     }
 
-// write contents of $rows array to $this->filename 
-    public function writeCSV($rows) { 
+// save $rows to $this->filename CSV
+   public function writeCSV($rows) { 
       $handle = fopen($this->filename, "w");
       foreach ($rows as $row) {
         fputcsv($handle, $row);
@@ -31,14 +37,14 @@ class AddressDataStore {
   // Push a new address entry onto the the $entries array
     public function add_Entry($entry) {
       //push $entry onto $entries
-      array_push($this->records, $entry);
-      writeCSV($this->records);
+      array_push($this->contacts, $entry);
+      $this->writeCSV($this->contacts);
       }
 
   // Remove item from list, redirect optional
     public function remove_Entry($key, $redirect = FALSE) {
       unset($this->entries[$key]);
-      $this->writeCSV();
+      $this->writeCSV($rows);
         if (is_string($redirect)) {
           header("Location: $redirect");
           exit(0);  
@@ -48,56 +54,30 @@ class AddressDataStore {
 
   // }
   }
+// end of class
 }
 
-// class AddressEntry {
-//     public $name;
-//     public $address;
-//     public $city;
-//     public $state;
-//     public $zip;
-//     public $phone;
+// Create an instance of AddressDataStore called $address_book
+$address_book = new AddressDataStore();
 
-//     public $errorMessages = array();
+// On the $address_book instance, pass the filename property to be the filename variable.
+$address_book->filename = 'data/address_book.csv';
 
-//     // Take in array from POST & assign values
-//     public function __construct(array $values = array()) {
-//         //
-//     }
+// perform the readCSV method on address_book instance and save all existing contacts to $contacts
+$contacts = $address_book->readCSV();
 
-//     // Return boolean: is entry valid?
-//     public function validate() {
-//         //
-//     }
-
-//     // Return values as an array for CSV output
-//     public function getArray() {
-
-//     }
-// }
-
-// Create an instance of AddressDataStore called $ads
-$ads = new AddressDataStore();
-
-// On the $ads object instance, pass the filename property to be the filename variable.
-$ads->filename = 'address_book.csv';
-
-// set $records to store the results of running the readCSV() method on the $ads object instance
-$records = $ads->readCSV();
-
-//$entries = [];
-$errorMessage = [];
-$entry = [];
-
+// set error messages to an empty array. 
+$errorMessages = [];
 
 // Check for removal from list - process if exists
 if (isset($_GET['remove'])) {
-  $records->remove_Entry($_GET['remove'], 'address_book.php');
+  
+  $address_book->remove_Entry($_GET['remove'], 'address_book.php');
 }
+
 
 // if the POST is not empty, then we can move on to validate the values.
 if (!empty($_POST)) { 
-  $entry = [];
   $entry['name'] = $_POST['name'];
   $entry['address'] = $_POST['address'];
   $entry['city'] = $_POST['city'];
@@ -106,7 +86,7 @@ if (!empty($_POST)) {
 
     foreach ($entry as $key => $value) {
       if(empty($value)) {
-          array_push($errorMessage, "$key must contain data"); 
+          array_push($errorMessages, "$key must contain data"); 
         } else {
           $entry['phone'] = $_POST['phone'];
           array_push($entry, $entry['phone']);
@@ -114,28 +94,16 @@ if (!empty($_POST)) {
       }
 
     if (empty($errorMessage)) {
+      $contacts = array_push($contacts, $entry);
       // push the $entry array onto the $records array
-      array_push($records, $entry);
-      // use method on $ads object instance to write $records
-      $ads->writeCSV($records);
-    } 
+      $address_book->add_Entry($contacts);
+    }
 }
 
- 
-
-echo "\n var_dump \$records\n";
-var_dump($records);
-
-echo "\n var_dump of \$entry\n";
-var_dump($entry);
-
-
+echo "var_dump of \$contacts";
+var_dump($contacts);
 
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,13 +122,13 @@ var_dump($entry);
         <th>Phone</th>
     </tr>
 
-          <? foreach ($records as $key => $record) : ?>
+          <? foreach ($contacts as $key => $contact) :  ?>
           <tr>
               <td><a href='?remove=<?=$key?>'>Delete</a></td>
             
-            <? foreach ($record as $value) : ?>
+            <? foreach ($contact as $field) : ?>
             
-            <td><?=$value;?></td>
+            <td><?=$field;?></td>
               <? endforeach; ?>
           </tr>
           <? endforeach; ?>
