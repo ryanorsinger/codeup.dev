@@ -57,9 +57,8 @@ class TodoList {
             exit(0);    
         }   
     }
-
-// Save completed items to a new-file called completed.txt
 }
+
 
 // create a new instance of ToDoList as $todo_list, 
 $todo_list = new TodoList('data/todo_list.txt');
@@ -76,6 +75,22 @@ if (!empty($_POST['newitem'])) {
 // Check for removal from list - process if exists
 if (isset($_GET['remove'])) {
     $todo_list->remove_item($_GET['remove'], 'todo-list.php');
+}
+
+// Check for marking item complete. If marked complete, write to a new file, then remove item from main list.
+if (isset($_GET['complete'])) { 
+    // make a new instance of ToDoList for completed items
+    $completed_items = new ToDoList('data/completed.txt');
+
+    // get $items[$_GET['complete']]
+    $key = $_GET['complete'];
+    $completed_item = $todo_list->items[$key];
+
+    // push that onto $completed_items->items
+    $completed_items->add_item($completed_item);
+
+   // remove completed item from $todo_list instance
+    $todo_list->remove_item($_GET['complete'], 'todo-list.php');
 }
 
 
