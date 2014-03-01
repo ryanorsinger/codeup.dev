@@ -62,10 +62,9 @@ class TodoList {
 // create a new instance of ToDoList as $todo_list, 
 $todo_list = new TodoList('data/todo_list.txt');
 
-//perform the get_list() method on this tds object instance
-// set the $items equal to the list.
-//$items = $todo_list->get_list();
-
+// perform the get_list() method on $todo_list instance
+$items = $todo_list->get_list();
+$errorMessages = [];
 
 // Check for new item - process if exists
 if (!empty($_POST['newitem'])) {
@@ -78,34 +77,33 @@ if (isset($_GET['remove'])) {
 }
 
 
-    // if (count($_FILES) > 0 && $_FILES['file1']['type'] != 'text/plain') {
-    //     echo "<p>Your file must be a 'text/plain' file type</p>";
-    //     exit(1);
-    // }
+if (count($_FILES) > 0 && $_FILES['file1']['type'] != 'text/plain') {
+         array_push($errorMessages, "<p>Your file must be a 'text/plain' file type</p>");
+        
+    }
       
+if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
+        // Set the destination directory for uploads
+        $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
+        // Grab the filename from the uploaded file by using basename
+        $newfile = basename($_FILES['file1']['name']);
+        // Create the saved filename using the file's original name and our upload directory
+        $saved_filename = $upload_dir . $newfile;
+        // This concatenates the directory with the filename and gives us a saved filename and path.
+        // Move the file from the temp location s our uploads directory
+        move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
 
+        // make a new Instance for the new file I just created
+        // save the new file's contents onto the existing 
+        $new_file_to_upload = new TodoList($saved_filename);
+        
+        // perform the get_list() method on the $new_file_to_upload instance.
+        $uploaded_todos = $new_file_to_upload->get_list();
 
-    // if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
-    //     // Set the destination directory for uploads
-    //     $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
-    //     // Grab the filename from the uploaded file by using basename
-    //     $newfile = basename($_FILES['file1']['name']);
-    //     // Create the saved filename using the file's original name and our upload directory
-    //     $saved_filename = $upload_dir . $newfile;
-    //     // This concatenates the directory with the filename and gives us a saved filename and path.
-    //     // Move the file from the temp location to our uploads directory
-    //     move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
-
-    //     // explode items from new filename into an array. set the array equal to results;
-    //     // merge the results array onto the items array
-
-    //     $results = open_file($saved_filename);
-    //     //var_dump($results);
-    //     //var_dump($items);
-    //     $items = array_merge($items, $results);
-    //     //var_dump($items); 
-    //     save_file($filename, $items);
-    // }
+        $todo_list->items = array_merge($items, $uploaded_todos);
+        //var_dump($items); 
+        $todo_list->save_file();
+    }
 
 
     ?>
