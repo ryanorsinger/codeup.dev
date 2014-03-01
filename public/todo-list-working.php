@@ -27,13 +27,13 @@ $items = read_file($file);
 if (!empty($_POST)) {
 	array_push($items, $_POST['newItem']);
 	save_file($file, $items);
-	header("Location: todo-list.php");
+	header("Location: todo-list-working.php");
 }
 
 if (!empty($_GET)) {
 	array_splice($items, $_GET['remove'], 1);
 	save_file($file, $items);
-	header("Location: todo-list.php");
+	header("Location: todo-list-working.php");
 }
 
 ?>
@@ -54,7 +54,7 @@ if (!empty($_GET)) {
 
 
 		<h3>Add a TODO List item:</h3>
-		<form method="POST" action="todo-list.php">
+		<form method="POST" action="todo-list-working.php">
 			<p>
 				<label for="newItem">New Item:</label>
 				<input id="newItem" name="newItem" type="text" autofocus="autofocus">

@@ -1,0 +1,105 @@
+<?php
+ 
+class TodoList {
+ 
+	// Set default file name and location
+	public $filename = 'data/todo_list.txt';
+ 
+	// Set the defaults items array
+	public $items = array();
+ 
+	// Set list items and optional filename
+	public function __construct($filename = '') {
+		if (!empty($filename)) {
+			$this->filename = $filename;
+		}
+		$this->items = $this->get_list();
+	}
+ 
+	// Save array to files
+	public function save_file() {
+	    $save_list = implode("\n", $this->items);
+	    $handle = fopen($this->filename, "w");
+	    fwrite($handle, $save_list);
+	    fclose($handle);
+	}
+ 
+	// Read a txt file, return an array
+	public function read_file() {
+	    $handle = fopen($this->filename, "r");
+	    $contents = fread($handle, filesize($this->filename));
+	    fclose($handle);
+	    return explode("\n", $contents);
+	}
+ 
+	// Returns an array of todo items
+	public function get_list() {
+		if (filesize($this->filename) > 0) {
+			return $this->read_file($this->filename);
+		} else {
+			return array();
+		}
+	}
+ 
+	// Add item to list, return new list
+	public function add_item($item) {
+		$new_item = htmlspecialchars(strip_tags($item));
+		array_push($this->items, $new_item);
+		$this->save_file();
+	}
+ 
+	// Remove item from list, redirect optional
+	public function remove_item($key, $redirect = FALSE) {
+		unset($this->items[$key]);
+		$this->save_file();
+		if (is_string($redirect)) {
+			header("Location: $redirect");
+			exit(0);	
+		}	
+	}
+ 
+}
+ 
+// Get new instance of TodoList
+$todo_list = new TodoList();
+ 
+// Check for removal from list - process if exists
+if (isset($_GET['remove'])) {
+	$todo_list->remove_item($_GET['remove'], 'lecture.php');
+}
+ 
+// Check for new item - process if exists
+if (!empty($_POST['newitem'])) {
+	$todo_list->add_item($_POST['newitem']);
+}
+ 
+?>
+<!DOCTYPE HTML!>
+<html>
+<head>
+	<title>ToDo List</title>
+</head>
+<body>
+	<h1>ToDo List</h1>
+	<? if (count($todo_list->items) > 0 ): ?>
+		<ul>
+			<? foreach ($todo_list->items as $key => $item): ?>
+				<li><?= $item; ?> | <a href='/lecture.php?remove=<?= $key; ?>' name='remove' id='remove'>remove</a></li>
+			<? endforeach; ?>
+		</ul>
+	<? else: ?>
+		<p>You have 0 todo items.</p>
+	<? endif; ?>
+	<h2>Add todos to list</h2>
+	<form method="POST" action="">
+		<p>
+			<label for="newitem">Item to add:</label>
+			<input id="newitem" name="newitem" type="text" autofocus='autofocus' placeholder="Enter new TODO item">
+		</p>
+		<p>
+			<input type="submit" value="Add Item">
+		</p>
+		<p>&copy; 2014 Codeup.com</p>
+	</form>
+</body>
+</html>

@@ -24,6 +24,7 @@ class Conversation {
 }
 
 // Create a new instance of Conversation
+// this instantiates the class and we create a variable $chat to hold that/THIS particular instance.
 $chat = new Conversation();
 
 // Set the $name variable

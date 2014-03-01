@@ -1,95 +1,111 @@
 <?php
 
-$filename = 'data/todo_list.txt';
+class TodoList {
 
-// set the items array to the file contents if the file exists, otherwise PDF_makespotcolor(p, spotname) it an empty array
-$items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
-$completed = array();
+    // set the default filename and location
+    public $filename = '';
 
-// this reads a file and returns the contents as an array
-        function open_file($filename) {
-            $handle = fopen($filename, "r");
-            $contents = fread($handle, filesize($filename));
-            fclose($handle);
-            $contents_array = explode("\n", $contents);
-            $items = $contents_array;
-            return $items;
-        }
+    // set the default items array
+    public $items = [];
+
+    // set list items and optional filename
+    public function __construct($filename = '') {
+        if (!empty($filename)) {
+            $this->filename = $filename;
+        }   
+        $this->items = $this->get_list();
+    }
+
+// Returns an array of todo items
+    public function get_list() {
+            if (filesize($this->filename) > 0) {
+             return $this->read_file($this->filename);
+             } else {
+             return array();
+         }
+    }
+
+// Read a txt file, return an array
+    public function read_file() {
+        $handle = fopen($this->filename, "r");
+        $contents = fread($handle, filesize($this->filename));
+        fclose($handle);
+        return explode("\n", $contents);
+    }
 
 // save an array to file as a flat file with items delimited by a newline
-        function save_file($filename, $items) {
-            $itemStr = implode("\n", $items);
-            $handle = fopen($filename, "w");
-            fwrite($handle, $itemStr);
+    public function save_file() {
+            $save_list = implode("\n", $this->items);
+            $handle = fopen($this->filename, "w");
+            fwrite($handle, $save_list);
             fclose($handle);
         }
 
-// save completed items to a new file called completed.txt
-        function completed_items($completed) {
-            $handle = fopen('data/completed.txt', "a");
-            fwrite($handle, $completed);
-            fclose($handle);
-        }
-
-
-
-
-
-// reassign $items to equal the old todo list with the new items added merged to the bottom
-//$items = (filesize($filename) > 0) ? $items = open_file($filename) : array();
-
-        // check if $_POST['new_todo'] is set
-        if (!empty($_POST['new_todo'])) {
-            // strip tags and escape user input
-            $item = htmlspecialchars(strip_tags($_POST['new_todo']));
-            $results = array_push($items, $item);
-            save_file($filename, $items);
-            header("Location: todo-list.php");
-        }
-
-
-        // It would be really really awesome to have the 'remove' set to 
-        // move the removed array element onto a new array called completed!
-        // We use the GET[remove] to get the element of the arry
-        // then I pass the $items[completed] element over to the completed items function
-
-        if(!empty($_GET['remove'])) {
-            $completed = ($_GET['remove']);
-            completed_items($items[$completed] . "\n");
-            array_splice($items, $_GET['remove'], 1);
-            save_file($filename, $items);
-            header("Location: todo-list.php");
-            die();   
-        }
-
-    if (count($_FILES) > 0 && $_FILES['file1']['type'] != 'text/plain') {
-        echo "<p>Your file must be a 'text/plain' file type</p>";
-        exit(1);
+// Add item to list, return new list
+    public function add_item($item) {
+        $new_item = htmlspecialchars(strip_tags($item));
+        array_push($this->items, $new_item);
+        $this->save_file();
     }
+
+// Remove item from list, redirect optional
+    public function remove_item($key, $redirect = FALSE) {
+        unset($this->items[$key]);
+        $this->save_file();
+        if (is_string($redirect)) {
+            header("Location: $redirect");
+            exit(0);    
+        }   
+    }
+}
+
+// create a new instance of ToDoList as $todo_list, 
+$todo_list = new TodoList('data/todo_list.txt');
+
+//perform the get_list() method on this tds object instance
+// set the $items equal to the list.
+//$items = $todo_list->get_list();
+
+
+// Check for new item - process if exists
+if (!empty($_POST['newitem'])) {
+    $todo_list->add_item($_POST['newitem']);
+}
+
+// Check for removal from list - process if exists
+if (isset($_GET['remove'])) {
+    $todo_list->remove_item($_GET['remove'], 'todo-list.php');
+}
+
+
+    // if (count($_FILES) > 0 && $_FILES['file1']['type'] != 'text/plain') {
+    //     echo "<p>Your file must be a 'text/plain' file type</p>";
+    //     exit(1);
+    // }
       
 
 
-    if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
-        // Set the destination directory for uploads
-        $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
-        // Grab the filename from the uploaded file by using basename
-        $newfile = basename($_FILES['file1']['name']);
-        // Create the saved filename using the file's original name and our upload directory
-        $saved_filename = $upload_dir . $newfile;
-        // This concatenates the directory with the filename and gives us a saved filename and path.
-        // Move the file from the temp location to our uploads directory
-        move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
+    // if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
+    //     // Set the destination directory for uploads
+    //     $upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
+    //     // Grab the filename from the uploaded file by using basename
+    //     $newfile = basename($_FILES['file1']['name']);
+    //     // Create the saved filename using the file's original name and our upload directory
+    //     $saved_filename = $upload_dir . $newfile;
+    //     // This concatenates the directory with the filename and gives us a saved filename and path.
+    //     // Move the file from the temp location to our uploads directory
+    //     move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
 
-        // explode items from new filename into an array. set the array equal to results;
-        // merge the results array onto the items array
+    //     // explode items from new filename into an array. set the array equal to results;
+    //     // merge the results array onto the items array
 
-        $results = open_file($saved_filename);
-        //var_dump($results);
-        //var_dump($items);
-        $items = array_merge($items, $results);
-        //var_dump($items); 
-        save_file($filename, $items);
-    }
+    //     $results = open_file($saved_filename);
+    //     //var_dump($results);
+    //     //var_dump($items);
+    //     $items = array_merge($items, $results);
+    //     //var_dump($items); 
+    //     save_file($filename, $items);
+    // }
 
 
     ?>
@@ -107,24 +123,29 @@ $completed = array();
 
 <h1> TODO List: </h1>
 <h2> The Awesome To Do List of My Great Agenda! </h2>
-        
+<? if (count($todo_list->items) > 0 ): ?>
  
-    <ul>        
-        <? foreach($items as $key => $item) : ?>
-                 <li><?=$item; ?> | <a href='?remove=<?$key ?>'>Mark Item as Done</a></li>
-            <? endforeach; ?>
-    </ul>
+        <ul>        
+            <? foreach($todo_list->items as $key => $item) : ?>
+                     <li><?=$item; ?> | <a href='/todo-list.php?remove=<?= $key; ?>' name='remove' id='remove'>Mark Item as Done</a></li>
+                <? endforeach; ?>
+        </ul>
+    <? else: ?>
+        <p> You have 0 todo items.</p>
+    <? endif; ?>
+<br>
 
-
-    <h3> Enter New To Do Items </h3>
-
-    <form method="POST" enctype="multipart/form-data" action="">
-         <p>
-          <label for="new_todo">New To Do</label>
-          <input id="new_todo" name="new_todo" type="text" autofocus="autofocus" placeholder="type new todo here">
-        <br>
+    
+<form method="POST" action="">
+        <p>
+            <label for="newitem">Item to add:</label>
+            <input id="newitem" name="newitem" type="text" autofocus='autofocus' placeholder="Enter new TODO item">
+        </p>
+        <p>
             <input type="submit" value="Add Item">
-        </form>
+        </p>
+       
+    </form>
 
 <h3> Upload a Text File </h3>
 
@@ -137,12 +158,12 @@ $completed = array();
             <input type="submit" value="Upload (Append)">
            
         </p>
-    </form>
+</form>
 
 <img src="/img/pirate-todo" alt="YARRRR">
-
+<p>&copy; Ryan Orsinger</p>
     
 
-    </body>
+</body>
     
 </html>
