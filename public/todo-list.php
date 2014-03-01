@@ -57,6 +57,8 @@ class TodoList {
             exit(0);    
         }   
     }
+
+// Save completed items to a new-file called completed.txt
 }
 
 // create a new instance of ToDoList as $todo_list, 
@@ -125,18 +127,17 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
  
         <ul>        
             <? foreach($todo_list->items as $key => $item) : ?>
-                     <li><?=$item; ?> | <a href='/todo-list.php?remove=<?= $key; ?>' name='remove' id='remove'>Mark Item as Done</a></li>
+                     <li><?=$item; ?> ||| <a href='/todo-list.php?complete=<?= $key; ?>' name='complete' id='complete'>Mark Complete</a> ||| <a href='/todo-list.php?remove=<?= $key; ?>' name='remove' id='remove'>Remove Item</a></li>
                 <? endforeach; ?>
         </ul>
     <? else: ?>
         <p> You have 0 todo items.</p>
     <? endif; ?>
-<br>
 
     
 <form method="POST" action="">
         <p>
-            <label for="newitem">Item to add:</label>
+            <label for="newitem"><h2>Item to add:</h2></label>
             <input id="newitem" name="newitem" type="text" autofocus='autofocus' placeholder="Enter new TODO item">
         </p>
         <p>
@@ -145,7 +146,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
        
     </form>
 
-<h3> Upload a Text File </h3>
+<h2> Upload a Text File </h2>
 
         <form method="POST" enctype="multipart/form-data">
         <p>
