@@ -161,7 +161,7 @@ if (isset($_GET['remove'])) {
 </form>
 
 <img src="/img/pirate-todo" alt="YARRRR">
-<p>&copy; Ryan Orsinger</p>
+<p>&copy; 2014, Ryan Orsinger</p>
     
 
 </body>
