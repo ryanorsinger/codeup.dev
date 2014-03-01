@@ -47,7 +47,7 @@ class TodoList {
 		array_push($this->items, $new_item);
 		$this->save_file();
 	}
- 
+
 	// Remove item from list, redirect optional
 	public function remove_item($key, $redirect = FALSE) {
 		unset($this->items[$key]);
