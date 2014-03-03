@@ -1,4 +1,3 @@
-
 <? 
 
 
@@ -7,38 +6,14 @@ require_once('filestore.php');
 $todo = new Filestore ();
 
 
-$items = $todo->read_lines();
+$items = $todo->read();
 
-
-
-// function open_file ($filename){
-// 	if(filesize($filename) == 0) {
-// 		return array();
-// 	}
-
-// 	$handle = fopen($filename, 'r');
-// 	$contents = fread($handle, filesize($filename));
-// 	$items = explode("\n", $contents);
-// 	fclose($handle);
-// 	return $items;
-// }
-
-// //fiel operation 
-// function save_to_file($filename, $items) {
-// 	$string = implode("\n", $items);
-// 	$handle = fopen($filename, 'w');
-// 	fwrite($handle, $string);
-// 	fclose($handle);
-// }
-
-
-// $items = open_file($this->filename);	
 
 //load file
 if (!empty($_POST["newitem"])){
 	$item = $_POST["newitem"];
 	array_push($items, $item);
-	$todo->write_lines($items);
+	$todo->write($items);
 }
 
 
@@ -46,7 +21,7 @@ if (!empty($_POST["newitem"])){
 //remove
 if (isset($_GET['remove'])){
 	unset($items[$_GET['remove']]);
-	$todo->write_lines($items);
+	$todo->write($items);
 	header("Location: todo-list.php");
 	exit;
 }
@@ -73,7 +48,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 	        	array_push($items, $item);
 	    	}
 		} 
-    $todo->write_lines($items);    
+    $todo->write($items);    
     }
 }
     
