@@ -1,6 +1,5 @@
 <? 
 
-
 require_once('filestore.php');
 
 $todo = new Filestore ();
@@ -9,7 +8,16 @@ $todo = new Filestore ();
 $items = $todo->read();
 
 
-//load file
+// throw exception if form submit is empty or if string is > 240 characters
+if (isset($_POST['newitem']) && (empty($_POST['newitem']))) {
+	throw new Exception ("New To Do item must contain information");
+}
+
+if ((isset($_POST['newitem'])) && (strlen($_POST['newitem']) > 240)) {
+	throw new Exception ('New todo Item must be less than 240 characters');
+}
+
+// add item and write item to $todo instance of object
 if (!empty($_POST["newitem"])){
 	$item = $_POST["newitem"];
 	array_push($items, $item);
@@ -17,8 +25,7 @@ if (!empty($_POST["newitem"])){
 }
 
 
-
-//remove
+//remove item when remove link is clicked
 if (isset($_GET['remove'])){
 	unset($items[$_GET['remove']]);
 	$todo->write($items);
@@ -26,12 +33,13 @@ if (isset($_GET['remove'])){
 	exit;
 }
 
+// upload a new TXT file of to dos 
 
 if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
-	var_dump($_FILES);
-	var_dump($_POST);
+	//var_dump($_FILES);
+	//var_dump($_POST);
 	if ($_FILES['file1']['type'] != 'text/plain') {
-		$errorMsg = 'Invalid Filw type';
+		$errorMsg = 'Invalid File type';
 		echo $errorMsg;
 	} else {
 		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
@@ -39,11 +47,11 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 		$saved_filename = $upload_dir . $new_file;
 		move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
 		$addFile = new Filestore($saved_filename);
-		$newitems = $addFile->read_lines();
+		$newitems = $addFile->read();
 	  
 	    if (isset($_POST['over1']) && $_POST['over1'] == TRUE){
 	    	$items = $newitems;
-	    }else{
+	    } else {
 			foreach ($newitems as $key => $item) {
 	        	array_push($items, $item);
 	    	}
@@ -51,6 +59,8 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
     $todo->write($items);    
     }
 }
+
+
     
 ?>
 
