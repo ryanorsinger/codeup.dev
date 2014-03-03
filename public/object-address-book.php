@@ -42,6 +42,7 @@ class AddressDataStore {
       return array();
     }
 }
+}
 
 
 // Create an instance of AddressDataStore called $ads

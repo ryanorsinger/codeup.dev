@@ -1,183 +1,125 @@
 <?php
 
-class AddressDataStore {
-    public $filename = '';
-    public $contents = [];
-    public $entry = [];
-    public $entries = array();
-    public $contacts = [];
-    public $rows = [];
+require_once('address_data_store.php');
 
-// set construct to get the file
-   public function __construct($filename = '') {
-        $this->filename = $filename;
-    }
+$book = new AddressDataStoreLower ();
 
-// Open $this->filename for reading return contents of the CSV
-     public function readCSV() {
-        // Open $this->filename for reading 
-        $contents = [];
-        $handle = fopen($this->filename, "r");
-        while (($data = fgetcsv($handle)) !== FALSE) {
-          $contents[] = $data;
-          }
-        fclose($handle);
-        return $contents;
-    }
+$address_book = $book->read_csv();
 
-// save $rows to $this->filename CSV
-   public function writeCSV($rows) { 
-      $handle = fopen($this->filename, "w");
-     foreach ($rows as $row) {
-        fputcsv($handle, $rows);
-     }
-      fclose($handle);
-    }
-    
-  // Push a new address entry onto the the $entries array
-    public function add_Entry($entry) {
-      //push $entry onto $entries
-      array_push($this->contacts, $entry);
-      $this->writeCSV($this->contacts);
-      }
+ 
+$book->write_csv($address_book);
 
-  // Remove item from list, redirect optional
-    public function remove_Entry($key, $redirect = FALSE) {
-      unset($this->entries[$key]);
-      $this->writeCSV($rows);
-      }
-// end of class
+$errorMessage =[];
+
+if (!empty($_POST)){
+	$entry =[];
+	$entry['name'] = $_POST['name'];
+	$entry['address'] = $_POST['address'];
+	$entry['city'] = $_POST['city'];
+	$entry['state'] = $_POST['state'];
+	$entry['zip'] = $_POST['zip'];
+
+	foreach ($entry as $key => $value){
+		if (empty($value)) {
+			array_push($errorMessage, "$key must have value.");
+		}
+	}
+	if(empty($errorMessage)) {
+	array_push($address_book, array_values($entry));
+	$book->write_csv($address_book);
+	}
 }
 
+if (isset($_GET['remove'])){
+	unset($address_book[$_GET['remove']]);
+	$book->write_csv($address_book);
 
-// Create an instance of AddressDataStore called $address_book
-$address_book = new AddressDataStore();
-
-// On the $address_book instance, pass the filename property to be the filename variable.
-$address_book->filename = 'data/address_book.csv';
-
-// perform the readCSV method on address_book instance and save all existing contacts to $contacts
-$contacts = $address_book->readCSV();
-
-// set error messages to an empty array. 
-$errorMessages = [];
-
-var_dump($contacts);
-
-// Check for removal from list - process if exists
-if (isset($_GET['remove'])) {
-  
-  $address_book->remove_Entry($_GET['remove'], 'address_book.php');
 }
 
+if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
+	if ($_FILES['file1']['type'] != 'text/csv') {
+		$errorMsg = 'Invalid File type';
+		echo $errorMsg;
+	} else {
+		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
+		$new_file = basename($_FILES['file1']['name']);
+		$saved_filename = $upload_dir . $new_file;
+		move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
 
-// if the POST is not empty, then we can move on to validate the values.
-if (!empty($_POST)) { 
-  $entry['name'] = $_POST['name'];
-  $entry['address'] = $_POST['address'];
-  $entry['city'] = $_POST['city'];
-  $entry['state'] = $_POST['state'];
-  $entry['zip'] = $_POST['zip'];
+	    $newfile = new AddressDataStoreLower($saved_filename);
 
-    foreach ($entry as $key => $value) {
-      if(empty($value)) {
-          array_push($errorMessages, "$key must contain data"); 
-        } else {
-          $entry['phone'] = $_POST['phone'];
-          array_push($entry, $entry['phone']);
-        }
-      }
+	    $addFile = $newfile->read_csv();
 
-    if (empty($errorMessage)) {
-      $contacts = array_push($contacts, $entry);
-      // push the $entry array onto the $records array
-      $address_book->add_Entry($contacts);
+	    if (isset($_POST['over1']) && $_POST['over1'] == TRUE){
+	    	$address_book = $addFile;
+	    }else{
+			foreach ($addFile as $key => $item) {
+	        	array_push($address_book, $addFile[$key]);
+	    	}
+		} 
+    $book->write_csv($address_book);    
     }
 }
 
-echo "var_dump of \$contacts";
-var_dump($contacts);
+var_dump($_FILES);
+var_dump($_POST);
+var_dump($_GET);
 
 ?>
+
 <!DOCTYPE html>
+
 <html>
 <head>
-  <title>Address Book</title>
+	<title>Address Book</title>
 </head>
 <body>
-  <h2> Welcome to the Address Book </h2>
-     <table>
-    <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zipcode</th>
-        <th>Phone</th>
-    </tr>
 
-          <? foreach ($contacts as $key => $contact) :  ?>
-          <tr>
-              <td><a href='?remove=<?=$key?>'>Delete</a></td>
-            
-            <? foreach ($contact as $field) : ?>
-            
-            <td><?=$field;?></td>
-              <? endforeach; ?>
-          </tr>
-          <? endforeach; ?>
+	<h2>Address Book</h2>
 
-    
-      </table>
+	<table>
+			<? foreach ($address_book as $key => $row) { ?> 
+				<tr>
+				<? foreach ($row as $entry) { ?>
+					 <?= "<td>" . htmlspecialchars(strip_tags($entry))  .  "</td>"; } ?>
+					<td> <a href='?remove=<?=$key ?>'>Remove Item</a></td>
+				<? } ?>
 
-<br>
-
-</br>
-<h2> Enter Folks Into My Address Book </h2>
-
-
-    <form method="POST" enctype="multipart/form-data" action="">
-          <label for="name">Name*</label>
-          <input id="name" name="name" type="text" placeholder="name goes here">
-          <br>
-          <label for="address">Address*</label>
-          <input id="address" name="address" type="text" placeholder="address goes here">
-          <br>
-          <label for="city">City*</label>
-          <input id="city" name="city" type="text" placeholder="name goes here">
-          <br>
-          <label for="state">State*</label>
-          <input id="state" name="state" type="text"  placeholder="state goes here">
-          <br>
-          <label for="zip">Zipcode*</label>
-          <input id="zip" name="zip" type="text" placeholder="zipcode goes here">
-          <br>
-          <label for="phone">Phone Number (optional)</label>
-          <input id="phone" name="phone" type="text"  placeholder=" phone goes here">
-
-        <br>
-            <input type="submit" value="Submit">
-        </form>
-
-
-
-<hr>
-<br>
-
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<!-- Marilyn Manson discovered a special correlation 
-<br>between your completed "Todo Items" and your address book.
-<br>
-<p></p>
-<img src="/img/amused_marilyn_manson.jpg" alt="Manson has your Address Book!">
- -->
+				</tr>
+	</table>
+	
+	<form method="POST" enctype="multipart/form-data" action="/address_book.php">
+		<p>
+			<label>Name: </label>
+			<input type="text" name="name" id="name" placeholder="Enter Name">
+		</p>
+		<p>
+			<label>Address: </label>
+			<input type="text" name="address" id="address" placeholder="Enter Address">
+		</p>
+		<p>
+			<label>City: </label>
+			<input type="text" name="city" id="city" placeholder="Enter City">
+		</p>
+		<p>
+			<label>State: </label>
+			<input type="text" name="state" id="state" placeholder="Enter State">
+		</p>
+		<p>
+			<label>Zip: </label>
+			<input type="text" name="zip" id="zip" placeholder="Enter Zip">
+		</p>
+		<p>
+			<input type="submit" value="add" >
+		</p>
+		<p>
+			<label for="file1">add file:</label>
+			<input type="file" id="file1" name="file1" >
+		</p>
+		<P>
+			<input type="submit" value="Upload">
+			<label><input type="checkbox" id="over1" name="over1" value="checked">Over Write</label>
+		</P>
 
 </body>
 </html>

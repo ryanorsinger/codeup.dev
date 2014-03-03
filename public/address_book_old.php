@@ -23,8 +23,6 @@ function readCSV($filename) {
   return $contents;
 }
 
-
-
 // if the POST is not empty, then we can move on to validate the values.
 if (!empty($_POST)) { 
   $entries = array();

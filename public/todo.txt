@@ -1,5 +1,3 @@
 call John Banks
 send Gloria the contact info for the Bank estate settlement
-call Julie at Broadway Bank
-Call Gloria
 Call Sasha
