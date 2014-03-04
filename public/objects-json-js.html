@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>JSON Objects Sample</title>
+	</head>
+	<body>
+
+		<script>
+// Create person object with firstName and lastName properties (set to your first and last name).
+			var person =
+			{
+    		"stringProp": "stringValue",
+   			"numberProp": 1,
+  			"objectProp": {
+        		"prop": "value"
+    			},
+    		"arrayProp" : ['item1', 'item2'],
+    		"arrayOfObjectsProp" : 
+    		[
+        		{
+            		"prop": "value"
+        		},
+        		{
+            		"prop": "value"
+        		}
+    		],
+    "boolProp"  : true,
+    "nullProp"  : null
+}
+
+			// add a function to the object
+			person.sayHello = function () {
+				alert("Hello " + this.name1 + ' ' + this.name2);
+			}
+
+			// Say hello from the person object
+			person.sayHello();
+
+
+		</script>
+	</body>
+
+</html>

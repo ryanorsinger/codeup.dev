@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Javascript Objects</title>
+	</head>
+	<body>
+
+		<script>
+			// initializes Baker to an empty object kinda like an array using [];
+			var baker = {};
+			baker.ingredient1 = "butter";
+			baker.ingredient2 = "flour";
+			baker.ingredient3 = "sugar";
+
+			// we name the method as a verb - like mix
+			// METHODS ARE ACTIONS are VERBS
+
+			// properties are typically nouns
+			// PROPERTIES are NOUNS, dog!
+			
+			baker.mix = function() {
+				console.log('Mixing ' + this.ingredient1 + ' and ' + this.ingredient2 + ' with ' + this.ingredient3);
+			}
+
+			baker.mix();
+
+			baker.ingredient2 = "twinkies";
+
+			baker.mix();
+
+		</script>
+	</body>
+
+</html>

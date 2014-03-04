@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Javascript Objects</title>
+	</head>
+	<body>
+
+		<script>
+// Create person object with firstName and lastName properties (set to your first and last name).
+			var person = {};
+			person.firstName = "JR";
+			person.lastName = "Dobbs";
+			person.middleName = "'Bob'";
+
+			// add a function to the object
+			person.sayHello = function () {
+				console.log("Hello " + this.firstName + ' ' + this.middleName + ' ' + this.lastName);
+			}
+
+			// Say hello from the person object
+			person.sayHello();
+
+
+		</script>
+	</body>
+
+</html>
