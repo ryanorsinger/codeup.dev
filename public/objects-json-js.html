@@ -5,36 +5,78 @@
 	<body>
 
 		<script>
-// Create person object with firstName and lastName properties (set to your first and last name).
-			var person =
+		var books = [
 			{
-    		"stringProp": "stringValue",
-   			"numberProp": 1,
-  			"objectProp": {
-        		"prop": "value"
-    			},
-    		"arrayProp" : ['item1', 'item2'],
-    		"arrayOfObjectsProp" : 
-    		[
-        		{
-            		"prop": "value"
-        		},
-        		{
-            		"prop": "value"
-        		}
-    		],
-    "boolProp"  : true,
-    "nullProp"  : null
-}
-
-			// add a function to the object
-			person.sayHello = function () {
-				alert("Hello " + this.name1 + ' ' + this.name2);
+				"title": "Stranger in a Strange Land",
+				"author": {
+							"authorFirstName": "Robert A.",
+							"authorLastName": "Heinlein"
+						},
+				"genre": "Sci-Fi"
+			},
+			{
+				"title": "Do Androids Dream of Electric Sheep?",
+				"author": {
+							"authorFirstName": "Philip K.",
+							"authorLastName": "Dick"
+						},
+				"genre": "Sci-Fi"
+			},
+			{
+				"title": "The Giving Tree",
+				"author": {
+							"authorFirstName": "Shel",
+							"authorLastName": "Silverstein"
+						},
+				"genre": "kids books"
+			},
+			{
+				"title": "Neuromancer",
+				"author": {
+							"authorFirstName": "William",
+							"authorLastName": "Gibson"
+						},
+				"genre": "Sci-Fi"
+			},
+			{	"title": "Antifragility",
+				"author": {
+							"authorFirstName": "Nassim Nicholas",
+							"authorLastName": "Taleb"
+						},
+				"genre": "Philosophy"
 			}
+		]
 
-			// Say hello from the person object
-			person.sayHello();
+// log out the books array
+console.log(books);
 
+
+function logArrayElements(element, index, array) {
+    console.log("a[" + index + "] = " + element);
+}
+[2, 5, 9].forEach(logArrayElements);
+
+// logs:
+// a[0] = 2
+// a[1] = 5
+// a[2] = 9
+
+
+
+// todo:
+// Loop through the array of books using .forEach and print out the specified information about each one.
+// start loop here
+
+    console.log("Book #" + todo);
+    console.log("Title: " + todo);
+    console.log("Author: " + todo);
+    console.log("---");
+// end loop here
+
+
+books.foreach (function ("element", index, array) {
+
+});
 
 		</script>
 	</body>
