@@ -2,8 +2,9 @@
 
 require_once('filestore.php');
 
-$todo = new Filestore ();
+class InvalidInputException extends Exception {}
 
+$todo = new Filestore ();
 
 $items = $todo->read();
 
@@ -11,11 +12,11 @@ $items = $todo->read();
 // throw exception if form submit is empty or if string is > 240 characters
 try {
 	if (isset($_POST['newitem']) && (empty($_POST['newitem']))) {
-		throw new Exception ("New To Do item must contain information");
+		throw new InvalidInputException("New To Do item must contain information");
 	}
 
 	if ((isset($_POST['newitem'])) && (strlen($_POST['newitem']) > 240)) {
-		throw new Exception ('New todo Item must be less than 240 characters');
+		throw new InvalidInputException('New todo Item must be less than 240 characters');
 	}
 	// add item and write item to $todo instance of object
 	if (!empty($_POST["newitem"])){
@@ -24,7 +25,7 @@ try {
 		$todo->write($items);
 	}
 
-} catch (Exception $e) {
+} catch (InvalidInputException $e) {
 	echo "Please try again. A new to-do item must contain information and be less than 240 characters.";
 }
 
