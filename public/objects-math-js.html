@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<title>Objects Math JS</title>
+	</head>
+	<body>
+
+		<script>
+
+		// create a circle object  -- radius is a property of the object circle
+		var circle = {
+    		"radius": 3,
+			getArea: function () {
+	   			return Math.PI * Math.pow(this.radius, 2);
+    		},    					
+   	 		logInfo: function (round) {
+   	 			var area = this.getArea();
+   	 			if (round == true) {
+   	 				area = Math.round(area);
+   	 			}
+        		console.log('Area of a circle with radius: ' + this.radius + ', is: ' + area);
+        		} 
+        	
+		};
+
+// log info about the circle
+circle.logInfo(false);
+circle.logInfo(true);
+
+//Change the radius of the circle to 5.
+// instead of changing the object in any way or using Math. again, 
+// we simiply change circle.radius to 5.
+circle.radius = 5;
+
+
+// log info about the circle
+circle.logInfo(false);
+circle.logInfo(true);
+
+
+		</script>
+	</body>
+
+</html>

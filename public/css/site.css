@@ -1,0 +1,60 @@
+/* 
+multi
+line
+comment
+*/
+
+/* unvisited link (:link) */
+a:link {
+ color:red;
+}
+
+/* visited link (:visited) */
+a:visited {
+ color:black;
+}
+
+/* mouse hover over link (:hover) */
+a:hover {
+ color:blue;
+}
+
+/* active/selected link (:active) */
+a:active {
+ color:green;
+}
+
+#container h1 {
+	color: blue;
+}
+/*
+selector: pseudo-class {
+    font-size: 33;
+    property2: value;
+}*/
+
+
+#bodystuff h1,p {
+	color: green;
+	font-size: 8;
+}
+
+.fancy-header {
+    color: blue; /* single line comment */
+    background-color: red;
+    text-decoration: underline;
+    font-size: 44;
+}
+
+.extra-large {
+	font-size:80;
+}
+
+h1,p {
+    color: blue;
+    font-size: 18;
+}
+
+#main-header {
+    color: green;
+}
