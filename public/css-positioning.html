@@ -4,12 +4,23 @@
   <title>Box Model Exercise</title>
   <style type='text/css'>
 
-    #banner {
-         position: absolute; top: 0; right: 0; border: 0;"   
+    #ribbon {
+         position: absolute; 
+         top: 0; 
+         right: 0; 
+         border: 0;"   
       }
 
     h1 {
       margin-bottom: 0;
+    }
+
+    /*for img elelment */
+    div>img {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+
     }
 
     div {
@@ -21,7 +32,10 @@
       font-weight: bold;
       margin-top: 50px;
       text-shadow: 1px 1px #ff0000;
+      margin-right: 50px;
+      margin-bottom: 50px;
       float: left;
+      position: relative;
     }
  
     #red {
@@ -41,6 +55,7 @@
     
     #green {
       background-color: #0F0;
+      clear: left;
       
     }
     #blue {
@@ -57,14 +72,32 @@
 </head>
 <body>
   <h1><a href="#">Visible Spectrum Wavelengths</a></h1>
-  <div id="red">620-750nm</div>
-  <div id="orange">620-750nm</div>
-  <div id="yellow">620-750nm</div>
-  <div id="green">620-750nm</div>
-  <div id="blue">620-750nm</div>
-  <div id="violet">620-750nm</div>
+  <div id="red">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
   
-  <img src='img/codeup-banner.png' id='banner'>
+  <div id="orange">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
+
+  
+  <div id="yellow">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
+
+  <div id="green">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
+
+  <div id="blue">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
+
+  <div id="violet">620-750nm
+  <img src='img/codeup-arrow.png'>
+  </div>
+  
+  <img src='img/codeup-ribbon.png' id='ribbon'>
   
   
 </body>
