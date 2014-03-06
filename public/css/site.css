@@ -5,6 +5,27 @@ comment
 */
 
 /* unvisited link (:link) */
+
+	body { 
+		background-image: url('http://media.boingboing.net/wp-content/uploads/2014/03/paddy-thumb1.jpg');
+}
+
+
+/*body {
+	background-color: #A5B4C2;
+}
+*/
+
+body { text-align: center; }
+
+body { 
+background-color: #FF0;
+}
+
+body {
+	color: #00F;
+}
+
 a:link {
  color:red;
 }
@@ -21,17 +42,14 @@ a:hover {
 
 /* active/selected link (:active) */
 a:active {
+	font-size: 22;
  color:green;
 }
 
 #container h1 {
 	color: blue;
 }
-/*
-selector: pseudo-class {
-    font-size: 33;
-    property2: value;
-}*/
+
 
 
 #bodystuff h1,p {

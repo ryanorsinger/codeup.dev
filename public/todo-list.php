@@ -74,6 +74,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 <html>
 <head>
 	<title>TODO List</title>
+	<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 
