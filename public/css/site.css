@@ -6,73 +6,27 @@ comment
 
 /* unvisited link (:link) */
 
-	body { 
-		background-image: url('http://media.boingboing.net/wp-content/uploads/2014/03/paddy-thumb1.jpg');
+h1 {
+    color: blue;
+    font-size: 3em;
 }
 
-
-/*body {
-	background-color: #A5B4C2;
-}
-*/
-
-body { text-align: center; }
 
 body { 
-background-color: #FF0;
+		background-image: url('');
+		background-color: #A5B4C2;
+		text-align: center;
+		font-size: 12;
+		color: #00F;
 }
 
-body {
-	color: #00F;
+ul {
+	font-size: 33;
+	text-align: center;
 }
 
-a:link {
- color:red;
+li {
+	font-size: 33;
+	text-align: left;
 }
 
-/* visited link (:visited) */
-a:visited {
- color:black;
-}
-
-/* mouse hover over link (:hover) */
-a:hover {
- color:blue;
-}
-
-/* active/selected link (:active) */
-a:active {
-	font-size: 22;
- color:green;
-}
-
-#container h1 {
-	color: blue;
-}
-
-
-
-#bodystuff h1,p {
-	color: green;
-	font-size: 8;
-}
-
-.fancy-header {
-    color: blue; /* single line comment */
-    background-color: red;
-    text-decoration: underline;
-    font-size: 44;
-}
-
-.extra-large {
-	font-size:80;
-}
-
-h1,p {
-    color: blue;
-    font-size: 18;
-}
-
-#main-header {
-    color: green;
-}

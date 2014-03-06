@@ -30,7 +30,6 @@ try {
 }
 
 
-
 //remove item when remove link is clicked
 if (isset($_GET['remove'])){
 	unset($items[$_GET['remove']]);
@@ -78,7 +77,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 </head>
 <body>
 
-<h2>TODO List</h2>
+<h1>TODO List</h1>
 <ul>
 	<? foreach ($items as $key => $item) {
 		$newTodo = $key + 1; ?>
@@ -93,7 +92,8 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
  		<p><?= $errorMsg; ?></p>
  		<? } ?>
 </ul>
-	<form method="POST" enctype="multipart/form-data" action="/todo-list.php">
+<hr>
+	<form method="POST" enctype="multipart/form-data" action="/todo-list.php" id="form">
 		<p>
 		<input type="text" id="newitem" name="newitem" autofocus="autofocus" placeholder="add item">
 		<input type="submit" value="add" >
@@ -109,5 +109,13 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 		</form>
 		</p>
 	</form>
+
+<hr>	
+
+<!-- <div> 
+Marilyn Manson saw your todo-list and correlated it with your address book!
+<br>
+<img src="/img/amused_marilyn_manson.jpg" alt="Manson has your Address Book!">
+ -->
 </body>
 </html>
