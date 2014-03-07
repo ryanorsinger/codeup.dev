@@ -1,1 +1,0 @@
-console.log('Hello from external JavaScript! This JS is in the /js/ folder! Yay!');

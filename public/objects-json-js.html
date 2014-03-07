@@ -7,12 +7,12 @@
 		<script>
 		var books = [
 			{
-				"title": "Stranger in a Strange Land",
+				"title": "Visual Display of Quantitative Information",
 				"author": {
-							"authorFirstName": "Robert A.",
-							"authorLastName": "Heinlein"
+							"authorFirstName": "Edward R. ",
+							"authorLastName": "Tufte"
 						},
-				"genre": "Sci-Fi"
+				"genre": "Data science, visualization"
 			},
 			{
 				"title": "Do Androids Dream of Electric Sheep?",
@@ -54,12 +54,14 @@ console.log(books);
 // Loop through the array of books using .forEach and print out the specified information about each one.
 // start loop here
 
+// if we wrote this in php, then this would be:
+// foreach($books as $index => $element) and that's a little different
+
 books.forEach (function(element, index, array) {
-    console.log("book #" + index);
+    console.log("book #" + (index +1));
     console.log("title: " + element.title);
     console.log("author: " + element.author.authorFirstName + ' ' + element.author.authorLastName);
     console.log("genre: " + element.genre);
-
 });
 
 		</script>

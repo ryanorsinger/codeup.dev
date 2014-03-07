@@ -10,7 +10,6 @@ class Filestore {
 
     public function __construct($filename = '') {
         if(!empty($filename)){
-        // Sets $this->filename
                 $this->filename = $filename;
 
                 if (strtolower(substr($filename, -3)) == 'csv') {

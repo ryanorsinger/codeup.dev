@@ -1,121 +1,145 @@
 <?php
 
-require_once('ADDRESS_DATA_STORE.PHP');
+require_once('address_data_store.php');
 
-$errorMessage = '';
+class InvalidInputException extends Exception{}
+class InputTooLongException extends Exception{}
+class InputEmptyException extends Exception{}
 
-$filename = 'address_book.csv';
-$run = new AddressDataStore($filename);
-$address_book = $run->read_csv();
+$book = new AddressDataStore('address_book.csv');
 
-if(count($_FILES) > 0 && $_FILES['file1']['error'] == 0) {
-	if($_FILES['file1']['type'] == 'text/csv') {
-		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
-		$filename = basename($_FILES['file1']['name']);
-		$saved_filename = $upload_dir . $filename;
-		move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
-		$uploaded_file = new AddressDataStore($saved_filename);
-		$new_array = $uploaded_file->read_csv();
-		var_dump($new_array);
-		$address_book = array_merge($address_book, $new_array);
-		$run->write_csv($address_book);
-	    header("Location:address_book.php");
-		exit(0);
+$address_book = $book->read();
 
+ 
+$book->write($address_book);
+
+$errorMessage =[];
+try {
+	if (!empty($_POST)) {
+		$entry =[];
+		$entry['name'] = $_POST['name'];
+		$entry['address'] = $_POST['address'];
+		$entry['city'] = $_POST['city'];
+		$entry['state'] = $_POST['state'];
+		$entry['zip'] = $_POST['zip'];
+
+		foreach ($entry as $key => $value) {
+			if (strlen($value) >= 125) {
+				throw new InputTooLongException ("The $key attribute has maximum length of 125 characters");
+			}
+
+			if (empty($value)) {
+				array_push($errorMessage, "$key must have value.");
+				throw new InputEmptyException ("Please try again. $key input must not be blank");
+			}
+		}
+
+		if(empty($errorMessage)) {
+		array_push($address_book, array_values($entry));
+		$book->write($address_book);
+		}
 	}
+} 
+
+catch (InputEmptyException $e) {
+	echo "Please try again. $key input must not be blank";
 }
 
-if(!empty($_POST)) {
-	if(empty($_POST['name'])) {
-		$errorMessage = 'You must give data for everything with "*".';
-	} elseif (empty($_POST['address'])) {
-		$errorMessage = 'You must give data for everything with "*".';
-	} elseif (empty($_POST['city'])) {
-		$errorMessage = 'You must give data for everything with "*".';
-	} elseif (empty($_POST['state'])) {
-		$errorMessage = 'You must give data for everything with "*".';
-	} elseif (empty($_POST['zip'])) {
-		$errorMessage = 'You must give data for everything with "*".';
+catch (InputTooLongException $e) {
+	echo "Please try again. The $key attribute has maximum length of 125 characters";
+}
+
+
+if (isset($_GET['remove'])){
+	unset($address_book[$_GET['remove']]);
+	$book->write($address_book);
+	
+}
+
+if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
+	if ($_FILES['file1']['type'] != 'text/csv') {
+		$errorMsg = 'Invalid File type';
+		echo $errorMsg;
 	} else {
-		array_push($address_book, $_POST);
-		$run->write_csv($address_book);
-	}
+		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
+		$new_file = basename($_FILES['file1']['name']);
+		$saved_filename = $upload_dir . $new_file;
+		move_uploaded_file($_FILES['file1']['tmp_name'], $saved_filename);
+
+	    $newfile = new AddressDataStoreLower($saved_filename);
+
+	    $addFile = $newfile->read();
+
+	    if (isset($_POST['over1']) && $_POST['over1'] == TRUE){
+	    	$address_book = $addFile;
+	    }else{
+			foreach ($addFile as $key => $item) {
+	        	array_push($address_book, $addFile[$key]);
+	    	}
+		} 
+    $book->write($address_book);    
+    }
 }
 
-if (isset($_GET['remove'])) {
-	$remove = $_GET['remove'];
-	unset($address_book[$remove]);
-	$run->writeCSV($address_book);
-	header("Location:address_book.php");
-	exit(0);
-}
+// var_dump($_FILES);
+// var_dump($_POST);
+// var_dump($_GET);
 
 ?>
 
+<!DOCTYPE html>
 
 <html>
 <head>
 	<title>Address Book</title>
 </head>
 <body>
+
 	<h2>Address Book</h2>
 
-<table>
-	<tr>
-		<td>Name</td>
-		<td>Address</td>
-		<td>City</td>
-		<td>State</td>
-		<td>Zip</td>
-		<td>Phone</td>
-	</tr>
+	<table>
+			<? foreach ($address_book as $key => $row) { ?> 
+				<tr>
+				<? foreach ($row as $entry) { ?>
+					 <?= "<td>" . htmlspecialchars(strip_tags($entry))  .  "</td>"; } ?>
+					<td> <a href='?remove=<?=$key ?>'>Remove Item</a></td>
+				<? } ?>
 
-<? if(!empty($address_book)) : ?>
-	<? foreach ($address_book as $key => $rows) : ?>
-		<tr>
-		<? foreach ($rows as $field) : ?>
-			<td><?= "$field"?></td>
-			<? endforeach;?>
-			<td><?=" <a href=\"?remove=$key\">Remove</a>"; ?></td>
-		</tr>
-<? endforeach;?>
-<? endif;?>
-
-</table>
-
-<h3>
-<?= $errorMessage; ?>	
-</h3>
-
-
-<h2>Address Book Additions</h2>
-
-<p>
-<form method="POST" action="address_book.php">
-	* Name: <input type="text" name="name"><br>
-	* Address: <input type="text" name="address"><br>
-	* City: <input type="text" name="city"><br>
-	* State: <input type="text" name="state"><br>
-	* Zip: <input type="text" name="zip"><br>
-	Phone: <input type="text" name="phone"><br>
-	<input type="submit">
-</form>
-
-</p>	
-
-<form method="POST" enctype="multipart/form-data" action="">
-    <p>
-        <label for="file1">Please select file to upload: </label>
-        <input type="file" id="file1" name="file1">
-    </p>
-	<p>
-        <button type="submit" value="Upload">Send</button>
-    </p>
-
-
-
-</form>
+				</tr>
+	</table>
 	
+	<form method="POST" enctype="multipart/form-data" action="/addressbook.php">
+		<p>
+			<label>Name: </label>
+			<input type="text" name="name" id="name" placeholder="Enter Name">
+		</p>
+		<p>
+			<label>Address: </label>
+			<input type="text" name="address" id="address" placeholder="Enter Address">
+		</p>
+		<p>
+			<label>City: </label>
+			<input type="text" name="city" id="city" placeholder="Enter City">
+		</p>
+		<p>
+			<label>State: </label>
+			<input type="text" name="state" id="state" placeholder="Enter State">
+		</p>
+		<p>
+			<label>Zip: </label>
+			<input type="text" name="zip" id="zip" placeholder="Enter Zip">
+		</p>
+		<p>
+			<input type="submit" value="add" >
+		</p>
+		<p>
+			<label for="file1">add file:</label>
+			<input type="file" id="file1" name="file1" >
+		</p>
+		<P>
+			<input type="submit" value="Upload">
+			<label><input type="checkbox" id="over1" name="over1" value="checked">Over Write</label>
+		</P>
 
 </body>
 </html>
