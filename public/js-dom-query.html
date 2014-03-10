@@ -11,6 +11,9 @@
         <li data-dbid="3">Item 3</li>
         <li data-dbid="4">Item 4</li>
         <li data-dbid="5">Item 5</li>
+        <li data-dbid="5">Item 6</li>
+        <li data-dbid="5">Item 7</li>
+        <li data-dbid="5">Item 8</li>
     </ul>
     <h2 id="sub-header">Hello Again.</h2>
     <p class="sub-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -22,29 +25,38 @@
         console.log(mainHeader);
 
         // todo: set inner html of mainHeader to "JavaScript is Cool"
-        mainHeader.innerHTML = "Javascript is Cool, yo! CodeUp rocks!" 
+        mainHeader.innerHTML = "Javascript is Coolio, yo! CodeUp rocks!" 
 
         // todo: get the sub header element by id
         var subHeader = document.getElementById('sub-header');
         console.log(subHeader);
 
         // todo: set the text color of subHeader to blue
+        subHeader.innerHTML = "Hello Again. This is the sub-header!";
         subHeader.style['color'] = 'blue';
 
         // todo: get all list items
         var listItems = document.getElementsByTagName('li');
         console.log(listItems);
 
-        // todo: set text color on every other list item to grey
-        // todo: set text color of li with dbid = 1 to blue
+        //todo: set text color on every other list item to grey
+        //todo: set text color of li with dbid = 1 to blue
+        for (i=0; i < listItems.length; i++) {
+            if (i % 2 == 0) {
+                listItems[i].style.color = 'grey';
+            }
+            if (listItems[i].attributes['data-dbid'].value == '1') {
+                listItems[i].style.color = 'blue';
+            }
+        }
+
         
-
-
         // todo: get all elements with class name sub-paragraph
         var subParagraph = document.getElementsByClassName('sub-paragraph');
+        console.log(subParagraph);
 
         // todo: change the text in the first sub paragraph to "Mission Accomplished!"
-        subParagraph.innerHTML = "Mission Accomplished!";
+        subParagraph[0].innerHTML = "Mission Accomplished!";
 
     </script>
 
