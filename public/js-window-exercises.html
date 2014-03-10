@@ -10,15 +10,20 @@ var count = 0;
 var max = 23;
 var interval = 1000; // interval time in milliseconds
 
-var intervalId = window.setInterval(function () {
-    if (count >= max) {
-        clearInterval(intervalId);
-        console.log('All done');
-    } else {
-        count++;
-        console.log('Repeating this line ' + count);
-    }
-}, interval);
+ var delay = 5000;
+        var timeoutID = setTimeout(function() {
+            window.location.href = 'http://google.com';
+        }, delay)
+
+// var intervalId = window.setInterval(function () {
+//     if (count >= max) {
+//         clearInterval(intervalId);
+//         console.log('All done');
+//     } else {
+//         count++;
+//         console.log('Repeating this line ' + count);
+//     }
+// }, interval);
 
 </script>
 
@@ -26,6 +31,7 @@ var intervalId = window.setInterval(function () {
 
 <body>
 
-	<h1>Yeah baby!<h1>
+	<h1>Welcome to the JS Window Exercises<h1>
+		<p>This page will redirect to <a href='http://google.com'> in 5 seconds</p>
 </body>
 </html>
