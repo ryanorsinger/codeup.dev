@@ -9,7 +9,6 @@ class InputEmptyException extends Exception{}
 $book = new AddressDataStore('address_book.csv');
 
 $address_book = $book->read();
-
  
 $book->write($address_book);
 
@@ -50,10 +49,11 @@ catch (InputTooLongException $e) {
 }
 
 
+// remote item from address book
 if (isset($_GET['remove'])){
 	unset($address_book[$_GET['remove']]);
 	$book->write($address_book);
-	
+	header('Location: addressbook.php');	
 }
 
 if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
@@ -81,9 +81,6 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
     }
 }
 
-// var_dump($_FILES);
-// var_dump($_POST);
-// var_dump($_GET);
 
 ?>
 
@@ -108,7 +105,7 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 				</tr>
 	</table>
 	
-	<form method="POST" enctype="multipart/form-data" action="/addressbook.php">
+	<form method="POST" enctype="multipart/form-data" action="/addressbook.php" id="add-address">
 		<p>
 			<label>Name: </label>
 			<input type="text" name="name" id="name" placeholder="Enter Name">
@@ -130,16 +127,22 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
 			<input type="text" name="zip" id="zip" placeholder="Enter Zip">
 		</p>
 		<p>
-			<input type="submit" value="add" >
+			<input type="submit" value="add new address" >
 		</p>
 		<p>
+	</form>
+	<br>
+	<hr>
+	<form method="POST" enctype="multipart/form-data" action="/addressbook.php" id="add-file">
+		
 			<label for="file1">add file:</label>
 			<input type="file" id="file1" name="file1" >
 		</p>
 		<P>
 			<input type="submit" value="Upload">
 			<label><input type="checkbox" id="over1" name="over1" value="checked">Over Write</label>
-		</P>
+		</p>
+	</form>
 
 </body>
 </html>

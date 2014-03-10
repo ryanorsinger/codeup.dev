@@ -93,12 +93,15 @@ if (count($_FILES) > 0 && $_FILES['file1']['error'] == 0){
  		<? } ?>
 </ul>
 <hr>
-	<form method="POST" enctype="multipart/form-data" action="/todo-list.php" id="form">
+	<form method="POST" enctype="multipart/form-data" action="/todo-list.php" id="form1">
 		<p>
 		<input type="text" id="newitem" name="newitem" autofocus="autofocus" placeholder="add item">
 		<input type="submit" value="add" >
 		</p>
 		<p>
+	</form>
+	<hr>
+	<form method="POST" enctype="multipart/form-data" action="/todo-list.php" id="form2">
 		<label for="file1">add file:</label>
 		<input type="file" id="file1" name="file1" >
 		</p>
