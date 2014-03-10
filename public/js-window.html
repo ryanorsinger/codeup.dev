@@ -13,8 +13,9 @@
         var startTime = new Date().getTime();
         var timeoutId;
         var endDelay = startTime + 5000;
+        var countTime;
 
-        console.log('start time is ' + startTime);
+        console.log('The start time is ' + startTime);
 
         function save() {
             // alert('Saved!');
@@ -23,7 +24,8 @@
 
         function autosave() {
             //console.log('autosave called');
-            if (timeoutId >= endDelay) {    
+            
+            if ( >= endDelay) {    
                 var timeoutId = setTimeout(function () {
                 save();
                 }, delay);
