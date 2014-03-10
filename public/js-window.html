@@ -5,36 +5,22 @@
 <body>
 
     <h2>Autosaving Text Input</h2>
-    <textarea rows="10" cols="60" id="important"></textarea>
+    <textarea rows="12" cols="68" id="important"></textarea>
 
     <script>
         var delay = 5000;
-
-        var startTime = new Date().getTime();
-        var timeoutId;
-        var endDelay = startTime + 5000;
-        var countTime;
-
-        console.log('The start time is ' + startTime);
+        var timeoutId = null; 
 
         function save() {
-            // alert('Saved!');
-            console.log('autosaved 5 seconds after a key-up event');
+        
+            console.log('saved');
+            console.log(timeoutId);
         }
 
-        function autosave() {
-            //console.log('autosave called');
-            
-            if ( >= endDelay) {    
-                var timeoutId = setTimeout(function () {
-                save();
-                }, delay);
-            } else {
-                clearTimeout();
-                autosave();
-            }
-
-            
+        function autosave() {  
+                //console.log ('autosave called...');
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(save, delay);
         }
             // todo:
             // Use setTimeout and clearTimeout within this function
@@ -43,8 +29,6 @@
             // you need to cancel the existing timer and set a new one.
 
         
-
-
 
         // don't modify the line below
         // this causes the autosave function to be called whenever
