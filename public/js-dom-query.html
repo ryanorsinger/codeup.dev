@@ -42,15 +42,15 @@
         //todo: set text color on every other list item to grey
         //todo: set text color of li with dbid = 1 to blue
         for (i=0; i < listItems.length; i++) {
-            if (i % 2 == 0) {
-                listItems[i].style.color = 'grey';
-            }
-            if (listItems[i].attributes['data-dbid'].value == '1') {
+            var dbId = listItems[i].attributes['data-dbid'].value;
+            if (dbId == '1') {
                 listItems[i].style.color = 'blue';
+            }
+            if (i % 2 != 0) {
+                listItems[i].style.color = 'grey';
             }
         }
 
-        
         // todo: get all elements with class name sub-paragraph
         var subParagraph = document.getElementsByClassName('sub-paragraph');
         console.log(subParagraph);
