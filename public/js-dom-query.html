@@ -22,14 +22,14 @@
         console.log(mainHeader);
 
         // todo: set inner html of mainHeader to "JavaScript is Cool"
-        mainHeader.innerHTML = "Javascript is Cool, yo!" 
+        mainHeader.innerHTML = "Javascript is Cool, yo! CodeUp rocks!" 
 
         // todo: get the sub header element by id
         var subHeader = document.getElementById('sub-header');
         console.log(subHeader);
 
         // todo: set the text color of subHeader to blue
-        
+        subHeader.style['color'] = 'blue';
 
         // todo: get all list items
         var listItems = document.getElementsByTagName('li');
@@ -37,11 +37,14 @@
 
         // todo: set text color on every other list item to grey
         // todo: set text color of li with dbid = 1 to blue
+        
+
 
         // todo: get all elements with class name sub-paragraph
-        //var subParagraphs = ;
+        var subParagraph = document.getElementsByClassName('sub-paragraph');
 
         // todo: change the text in the first sub paragraph to "Mission Accomplished!"
+        subParagraph.innerHTML = "Mission Accomplished!";
 
     </script>
 
