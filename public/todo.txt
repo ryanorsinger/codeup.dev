@@ -1,5 +1,10 @@
-call Sasha
-call Gloria
-yay!
-test
-test
+method
+it's a method
+method
+it's a method
+method
+it's a method
+method
+it's a method
+method
+it's a method

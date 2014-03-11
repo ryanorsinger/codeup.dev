@@ -1,5 +1,6 @@
-call Gloria
-call Sasha
-call Kim
-asdf
-call Gloria
+method
+it's a method
+method
+it's a method
+method
+it's a method

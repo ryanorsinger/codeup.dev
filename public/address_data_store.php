@@ -4,7 +4,6 @@ require_once('filestore.php');
 
 class AddressDataStore extends Filestore {
 
-
 }
 
 class AddressDataStoreLower extends AddressDataStore {
@@ -13,7 +12,5 @@ class AddressDataStoreLower extends AddressDataStore {
 		$this->filename = strtolower($filename);
 		parent::__construct($filename);
 	}
-
-
 
 }

@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Event listeners for fun, prophetic mysteries, and rentful profit!</title>
+
+</head>
+<body>
+
+    <div id="outside">
+        OUTSIDE
+        <div id="inside"> inside 
+    </div>
+        </div>
+
+        <script type"text/javascript">
+
+            var outside = document.getElementById('outside');
+            var inside = document.getElementById('inside');
+           
+            outside.addEventListener('click', function(e), {
+                alert('outside');
+            }, false);
+
+                inside.addEventListener('click', function(e), {
+                e.stopPropogation();
+                alert('inside');
+            }, false);
+
+        </script>
+</body>
+</html>

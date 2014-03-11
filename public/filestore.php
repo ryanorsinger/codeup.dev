@@ -51,7 +51,7 @@ class Filestore {
     }
 
     private function write_lines($items) {
-        var_dump($items);
+        //var_dump($items);
         $string = implode("\n", $items);
         $handle = fopen($this->filename, 'w');
         fwrite($handle, $string);

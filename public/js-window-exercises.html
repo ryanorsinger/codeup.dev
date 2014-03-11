@@ -12,7 +12,7 @@ var interval = 1000; // interval time in milliseconds
 
  var delay = 5000;
         var timeoutID = setTimeout(function() {
-            window.location.href = 'http://google.com';
+            window.location.reload(TRUE);
         }, delay)
 
 // var intervalId = window.setInterval(function () {
@@ -32,6 +32,6 @@ var interval = 1000; // interval time in milliseconds
 <body>
 
 	<h1>Welcome to the JS Window Exercises<h1>
-		<p>This page will redirect to <a href='http://google.com'> in 5 seconds</p>
+		<p>This page will redirect to <a href='http://codeup.dev/js-window-exercises.html'>itself and reload</a> in 5 seconds</p>
 </body>
 </html>
