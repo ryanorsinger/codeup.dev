@@ -5,10 +5,11 @@
 <body>
 
     <h1 id="main-header">DOM Manipulation with Event Listeners</h1>
+
     <button id="header-button">Change the text inside of the Main Header</button>
     <button id="subheader-button">Change the color of the sub-header</button>
-    <button id="list-button">Zebra Stripe list elements grey. Change "Item 1" to blue</button>
-    <button id="paragraph-button">Change the content of the 1st paragraph</button>
+    <button id="list-change-button">Zebra Stripe list elements grey. Change "Item 1" to blue</button>
+    <button id="paragraph-change">Change the paragraph</button>
 
 
     <ul>
@@ -25,56 +26,44 @@
     <p class="sub-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
     <script>
-    var btn1;
-    var btn2;
-    var btn3;
-    var btn4;
-    var mainHeader;
-
-
-    // add event listener to btn1
-        var btn1 = document.getElementById('header-button');
-        btn1.addEventListener('click', function(e) {
-             // todo: set inner html of mainHeader to "JavaScript is Cool"
+        //on click button 1, change the header text
+        document.getElementById('header-button').addEventListener('click', function(e) {
             var mainHeader = document.getElementById('main-header');
-            mainHeader.innerHTML = "Javascript is Coolio, yo! CodeUp rocks!"; 
+            mainHeader.innerHTML = "Javascript is Coolio, yo! CodeUp rocks!";
+        }, false);
+            
+
+        // todo: on click button 2, change subheader color and text
+        document.getElementById('subheader-button').addEventListener('click', function(e) {
+            var subHeader = document.getElementById('sub-header');
+            subHeader.innerHTML = "Hello Again. This is the sub-header!";
+            subHeader.style['color'] = 'blue';            
         }, false);
 
 
+        // on button 3 click, zebra stripe all list items and make "item 1" blue
 
-       
+        document.getElementById('list-change-button').addEventListener('click', function(e) {
+            var listItems = document.getElementsByTagName('li');
+            for (i=0; i < listItems.length; i++) {
+                var dbId = listItems[i].attributes['data-dbid'].value;
+                if (dbId == '1') {
+                    listItems[i].style.color = 'blue';
+                }
+                else if (i % 2 != 0) {
+                    listItems[i].style.color = 'grey';  
+                }
+            }          
+        }, false);
 
+        // on button 4 click, change paragraph text to mission accomplished!
+        document.getElementById('paragraph-change').addEventListener('click', function(e) {
+            var subParagraph = document.getElementsByClassName('sub-paragraph');
+            console.log(subParagraph);
+            subParagraph[0].innerHTML = "Mission Accomplished!";
+        }, false);
 
-        // todo: get the sub header element by id
-        var subHeader = document.getElementById('sub-header');
-        console.log(subHeader);
-
-        // todo: set the text color of subHeader to blue
-        subHeader.innerHTML = "Hello Again. This is the sub-header!";
-        subHeader.style['color'] = 'blue';
-
-        // todo: get all list items
-        var listItems = document.getElementsByTagName('li');
-        console.log(listItems);
-
-        //todo: set text color on every other list item to grey
-        //todo: set text color of li with dbid = 1 to blue
-        for (i=0; i < listItems.length; i++) {
-            var dbId = listItems[i].attributes['data-dbid'].value;
-            if (dbId == '1') {
-                listItems[i].style.color = 'blue';
-            }
-            else if (i % 2 != 0) {
-                listItems[i].style.color = 'grey';  
-            }
-        }
-
-        // todo: get all elements with class name sub-paragraph
-        var subParagraph = document.getElementsByClassName('sub-paragraph');
-        console.log(subParagraph);
-
-        // todo: change the text in the first sub paragraph to "Mission Accomplished!"
-        subParagraph[0].innerHTML = "Mission Accomplished!";
+    
 
     </script>
 
