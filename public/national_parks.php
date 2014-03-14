@@ -8,7 +8,10 @@ if ($mysqli->connect_errno) {
 }
 
 
-// Query to get the parks if GET is not empty
+// Set default values and Query to get the parks if GET is not empty
+$sortCol = 'name';
+$sortOrder = 'asc';
+
 if (!empty($_GET)) {
     $sortCol = $_GET['sort_column'];
     $sortOrder = $_GET['sort_order'];
@@ -16,6 +19,7 @@ if (!empty($_GET)) {
 } else {
     $result = $mysqli->query("SELECT * FROM national_parks");
 }
+
 
 
 ?>
@@ -30,8 +34,52 @@ if (!empty($_GET)) {
 <body>
 
 <div class="col-md-10 col-md-offset-1">
+    <br>
     <h1>National Parks of the USA <small> a CodeUp project for using MySQLi within PHP</small></h1>
 </div>
+
+
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="input-name" class="col-sm-2 control-label">Park Name</label>
+    <div class="col-sm-7">
+      <input type="name" class="form-control" id="parkname" placeholder="Enter National Park Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input-location" class="col-sm-2 control-label">Park Name</label>
+    <div class="col-sm-7">
+      <input type="location" class="form-control" id="location" placeholder="Park Location">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="input-description" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-7">
+      <input type="description" class="form-control" id="park-description" placeholder="Park Description">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="input-location" class="col-sm-2 control-label">Date Established</label>
+    <div class="col-sm-7">
+      <input type="date-for-sql" class="form-control" id="location" placeholder="yyyy/mm/dd">
+    </div>
+  </div>
+
+ <div class="form-group">
+    <label for="input-location" class="col-sm-2 control-label">Area in Acres</label>
+    <div class="col-sm-7">
+      <input type="area" class="form-control" id="park_area" placeholder="area in acres">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Add Park to Database</button>
+    </div>
+  </div>
+</form>
+
 
 
 <div class="col-md-10 col-md-offset-1">
@@ -80,10 +128,9 @@ if (!empty($_GET)) {
                 echo "</tr>";
                 }
             ?>
-
     </table>
-
 </div>
+
 
 
 
