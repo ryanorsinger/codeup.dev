@@ -24,6 +24,8 @@ if (!empty($_GET)) {
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
+
+
 </head>
 <body>
 
@@ -33,38 +35,39 @@ if (!empty($_GET)) {
 
 
 <div class="col-md-10 col-md-offset-1">
-    <table class="table table-striped" id="park-data">
+    <table class="table table-striped">
         <thead>
             <tr>
                <!--  <th><a href="?sort_column=name&sort_order=asc">Park Name</th> -->
                 <th>Park Name
                 <br>
                     <a href="?sort_column=name&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="?sort_column=name&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                     <a href="?sort_column=name&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
                 </th>
                 
                 <th>Location
                 <br>
                     <a href="?sort_column=location&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="?sort_column=location&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                     <a href="?sort_column=location&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
                 </th>
                 <th>Description
                 <br>
                     <a href="?sort_column=description&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="?sort_column=description&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                     <a href="?sort_column=description&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
                 </th>
                 <th>Date Established
                 <br>
                     <a href="?sort_column=date_established&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="?sort_column=date_established&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                     <a href="?sort_column=date_established&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
                 </th>
                 <th>Area in Acres
                 <br>
                     <a href="?sort_column=area_in_acres&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <a href="?sort_column=area_in_acres&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                     <a href="?sort_column=area_in_acres&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
                 </th>
             </tr> 
             <tr>
+        </thead>
       
             <?php
                 while ($row = $result->fetch_assoc()) {
@@ -77,6 +80,7 @@ if (!empty($_GET)) {
                 echo "</tr>";
                 }
             ?>
+
     </table>
 
 </div>
