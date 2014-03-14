@@ -7,23 +7,15 @@ if ($mysqli->connect_errno) {
     throw new Exception('Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 }
 
-// $sortCol = $_GET['sort_column'];
-// $sortOrder = $_GET['sort_order'];
 
-// if empty($_GET['sort_column']) {
-//     $sortCol = $_GET['name'];
-// }
-
-// if empty($_GET['sort_order']) {
-//     $sortCol = $_GET['asc'];
-// }
-
-
-// Query to get the parks... but this is expecting both of these to have values.... so we need some defaults
-// $result = $mysqli->query("SELECT * FROM national_parks ORDER BY $sortCol $sortOrder");
- $result = $mysqli->query("SELECT * FROM national_parks");
-
-
+// Query to get the parks if GET is not empty
+if (!empty($_GET)) {
+    $sortCol = $_GET['sort_column'];
+    $sortOrder = $_GET['sort_order'];
+    $result = $mysqli->query("SELECT * FROM national_parks ORDER BY $sortCol $sortOrder");
+} else {
+    $result = $mysqli->query("SELECT * FROM national_parks");
+}
 
 
 ?>
@@ -34,8 +26,10 @@ if ($mysqli->connect_errno) {
 
 </head>
 <body>
+
+<div class="col-md-10 col-md-offset-1">
     <h1>National Parks of the USA <small> a CodeUp project for using MySQLi within PHP</small></h1>
-   <br>
+</div>
 
 
 <div class="col-md-10 col-md-offset-1">
@@ -47,27 +41,31 @@ if ($mysqli->connect_errno) {
                 <br>
                     <a href="?sort_column=name&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="?sort_column=name&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
-                    </th>
-                <th>Location</th>
+                </th>
+                
+                <th>Location
                 <br>
                     <a href="?sort_column=location&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="?sort_column=location&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
-                <th>Description</th>
+                </th>
+                <th>Description
                 <br>
                     <a href="?sort_column=description&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="?sort_column=description&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
-                <th>Date Established</th>
+                </th>
+                <th>Date Established
                 <br>
                     <a href="?sort_column=date_established&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="?sort_column=date_established&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
-                <th>Area in Acres</th>
+                </th>
+                <th>Area in Acres
                 <br>
                     <a href="?sort_column=area_in_acres&sort_order=asc" span class="glyphicon glyphicon-chevron-up"></span></a>
                     <a href="?sort_column=area_in_acres&sort_order=desc" span class="glyphicon glyphicon-chevron-down"></span></a>
+                </th>
             </tr> 
             <tr>
-
-            
+      
             <?php
                 while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
@@ -82,6 +80,7 @@ if ($mysqli->connect_errno) {
     </table>
 
 </div>
+
 
 
 
