@@ -1,12 +1,6 @@
 <?php
 
-// Instantiates a new connection to the databasse
-$mysqli = @new mysqli('127.0.0.1', 'codeup', 'password', 'codeup_mysqli_test_db');
-
-// check for errors connecting to the database
-if ($mysqli->connect_errno) {
-    throw new Exception('Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-}
+require_once 'mysqli_call.php';
 
 
 // Set default values for Query if GET is not empty
@@ -17,12 +11,45 @@ $sortOrder = 'asc';
 if (!empty($_GET)) {
     $sortCol = $_GET['sort_column'];
     $sortOrder = $_GET['sort_order'];
-    $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
+    
+    //$result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
+    
+    // Step 1 is prepare the parameters
+    $stmt = $mysqli->prepare("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol = ?, $sortOrder = ?");
+
+    //Step 2 is to bind parameters
+    $stmt->bind_param("ss", $_GET["sortCol"], $_GET["sortOrder"]);
+
+    // Execute the query and return result
+    $stmt->execute();
+
+    // Bind results to variables
+    $stmt->bind_result($sortCol, $sortOrder);
+
+
 } else {
     $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks");
 }
 
-//
+
+// Gather user input
+// if (!empty($_POST)) {
+
+//   //CREATE the preapared statement
+//   $stmt = $mysqli->prepare("INSERT INTO national_parks (name, description, location, date_established, area_in_acres") 
+//     VALUES (?, ?, ?, ?, ?);
+
+//   // BIND parameters
+//   $stmt->bind_param("sssss", $_POST['name'], $_POST['description'], $_POST['location'], $_POST['date_established'], $_POST['area_in_acres']);
+
+//     //execute query; return results
+//     $stmt->execute();
+// }
+
+
+
+
+
 
 
 
@@ -33,7 +60,6 @@ if (!empty($_GET)) {
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 
-
 </head>
 <body>
 
@@ -42,7 +68,7 @@ if (!empty($_GET)) {
     <h1>National Parks of the USA <small> a CodeUp project for using MySQLi within PHP</small></h1>
 </div>
 
-
+<!-- give id, name, type, placeholder -->
 <form class="form-horizontal" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="input-name" class="col-sm-2 control-label">Park Name</label>
@@ -119,18 +145,19 @@ if (!empty($_GET)) {
             </tr> 
             <tr>
         </thead>
+
+<?php
+while ($row = $result->fetch_assoc()) {
+      echo "<tr>";
+      echo "<td>" . $row['name'] . "</td>";
+      echo "<td>" . $row['location'] . "</td>";
+      echo "<td>" . $row['description'] . "</td>";     
+      echo "<td>" . $row['date_established'] . "</td>";
+      echo "<td>" . $row['area_in_acres'] . "</td>";
+      echo "</tr>";
+    }
+?>
       
-            <?php
-                while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $row['location'] . "</td>";
-                echo "<td>" . $row['description'] . "</td>";     
-                echo "<td>" . $row['date_established'] . "</td>";
-                echo "<td>" . $row['area_in_acres'] . "</td>";
-                echo "</tr>";
-                }
-            ?>
     </table>
 </div>
 
