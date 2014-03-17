@@ -1,6 +1,14 @@
 <?php
 
-require_once 'mysqli_call.php';
+// require_once 'mysqli_call.php';
+
+// Instantiates a new connection to the databasse
+$mysqli = @new mysqli('127.0.0.1', 'codeup', 'password', 'codeup_mysqli_test_db');
+
+// check for errors connecting to the database
+if ($mysqli->connect_errno) {
+    throw new Exception('Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+}
 
 
 // Set default values for Query if GET is not empty
@@ -31,23 +39,34 @@ $validCols = ['name', 'location', 'description', 'date_established', 'area_in_ac
 // because we need a many to many relationship
 
 
-// Gather user input
-// if (!empty($_POST)) {
+// Gather user input, validate input, and sanitizing
+ if ($_POST) {
 
-//   //CREATE the preapared statement
-//   $stmt = $mysqli->prepare("INSERT INTO national_parks (name, description, location, date_established, area_in_acres") 
-//     VALUES (?, ?, ?, ?, ?);
+    // CREATE the preapared statement
+    $stmt = $mysqli->prepare("INSERT INTO national_parks (name, location, description, date_established, area_in_acres) VALUES (?, ?, ?, ?, ?)");
 
-//   // BIND parameters
-//   $stmt->bind_param("sssss", $_POST['name'], $_POST['description'], $_POST['location'], $_POST['date_established'], $_POST['area_in_acres']);
+    // BIND parameters 
+    $stmt->bind_param("ssssd", $_POST['name'], $_POST['location'], $_POST['description'], $_POST['date_established'], $_POST['area_in_acres']);
 
-//     //execute query; return results
-//     $stmt->execute();
-// }
+    //execute query; return results
+    $stmt->execute();
+    
+    header('Location: national_parks.php');
+    // Bind result vars
+    // $stmt->bind_result($name, $location, $location, $date_established, $area_in_acres);  
 
+}
+    // // create empty array for results
+    // $results = [];
 
-
-
+    // // Populate results array
+    // while ($stmt->fetch()) {
+    //   $results['name'] = $name;
+    //   $results['location'] = $location;
+    //   $results['description'] = $description;
+    //   $results['date_established'] = $date_established;
+    //   $results['area_in_acres'] = $area_in_acres;
+    // }
 
 
 
@@ -57,7 +76,7 @@ $validCols = ['name', 'location', 'description', 'date_established', 'area_in_ac
 <head>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="/css/datepicker.css"
 
 </head>
 <body>
@@ -68,36 +87,37 @@ $validCols = ['name', 'location', 'description', 'date_established', 'area_in_ac
 </div>
 
 <!-- give id, name, type, placeholder -->
-<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" method="POST" action="national_parks.php" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="input-name" class="col-sm-2 control-label">Park Name</label>
+    <label for="parkname" class="col-sm-2 control-label">Park Name</label>
     <div class="col-sm-7">
-      <input type="name" class="form-control" id="parkname" placeholder="Enter National Park Name">
+      <input type="text" class="form-control" id="parkname" name="name" placeholder="Enter National Park Name">
     </div>
   </div>
   <div class="form-group">
-    <label for="input-location" class="col-sm-2 control-label">Park Name</label>
+    <label for="location" class="col-sm-2 control-label">Location</label>
     <div class="col-sm-7">
-      <input type="location" class="form-control" id="location" placeholder="Park Location">
+      <input type="text" class="form-control" id="location" name="location" placeholder="Park Location">
     </div>
   </div>
    <div class="form-group">
-    <label for="input-description" class="col-sm-2 control-label">Description</label>
+    <label for="park-description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-7">
-      <input type="description" class="form-control" id="park-description" placeholder="Park Description">
+      <input type="text" class="form-control" id="park-description" name="description" placeholder="Park Description">
     </div>
   </div>
    <div class="form-group">
-    <label for="input-location" class="col-sm-2 control-label">Date Established</label>
+    <label for="date_established" class="col-sm-2 control-label">Date Established</label>
     <div class="col-sm-7">
-      <input type="date-for-sql" class="form-control" id="location" placeholder="yyyy-mm-dd">
+    <input type="date" class="span2" name="date_established" id="date_established" data-date-format="yyyy-mm-dd" placeholder="pick the date established">
+      <!-- <input type="text" class="form-control" id="date_established" name="date_established" placeholder="yyyy-mm-dd"> -->
     </div>
   </div>
 
  <div class="form-group">
-    <label for="input-location" class="col-sm-2 control-label">Area in Acres</label>
+    <label for="park_area" class="col-sm-2 control-label">Area in Acres</label>
     <div class="col-sm-7">
-      <input type="area" class="form-control" id="park_area" placeholder="area in acres">
+      <input type="text" class="form-control" id="park_area" name="area_in_acres" placeholder="area in acres">
     </div>
   </div>
 
@@ -163,6 +183,9 @@ while ($row = $result->fetch_assoc()) {
 
 
 
+<script src="js/bootstrap-datepicker.js">
+  ('.datepicker').datepicker();
+</script>
 
 </body>
 </html>
