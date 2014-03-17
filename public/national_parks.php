@@ -10,27 +10,26 @@ $sortOrder = 'asc';
 $validCols = ['name', 'location', 'description', 'date_established', 'area_in_acres'];
 
 // this handles the GET links used to sort by which column and which direction asc or desc
-if (isset($_GET['sort_column']) && in_array($_GET['sort_column'], $validCols)) {  
+
+
+  if ((isset($_GET['sort_column'])) && (in_array($_GET['sort_column'], $validCols))) {  
       $sortCol = $_GET['sort_column'];
-
-if (isset($_GET['sort_order'])) && ($_GET['sort_order'] == 
-      $sortOrder = $_GET['sort_order'];
     
-   
-
-      $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
-
-
-} else {
+      if ((isset($_GET['sort_order'])) && ($_GET['sort_order'] == 'desc')) {
+        $sortOrder = 'desc';
+      }
+  $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
+  
+  } else {
     $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks");
 }
-
 
 // rather than doing like %state1% or like %state2% for parks that spread across multiple states
 // we can address this through database design
 // then we need an associative table that associates  many states to many parks 
 // associate them with parkID and then stateID so we can have park1 in two or 4 different states
 // because we need a many to many relationship
+
 
 // Gather user input
 // if (!empty($_POST)) {
