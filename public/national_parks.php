@@ -1,24 +1,28 @@
 <?php
 
+// Instantiates a new connection to the databasse
 $mysqli = @new mysqli('127.0.0.1', 'codeup', 'password', 'codeup_mysqli_test_db');
 
-// check for errors
+// check for errors connecting to the database
 if ($mysqli->connect_errno) {
     throw new Exception('Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 }
 
 
-// Set default values and Query to get the parks if GET is not empty
+// Set default values for Query if GET is not empty
 $sortCol = 'name';
 $sortOrder = 'asc';
 
+// this handles the GET links used to sort by which column and which direction asc or desc
 if (!empty($_GET)) {
     $sortCol = $_GET['sort_column'];
     $sortOrder = $_GET['sort_order'];
-    $result = $mysqli->query("SELECT * FROM national_parks ORDER BY $sortCol $sortOrder");
+    $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
 } else {
-    $result = $mysqli->query("SELECT * FROM national_parks");
+    $result = $mysqli->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks");
 }
+
+//
 
 
 
@@ -39,7 +43,7 @@ if (!empty($_GET)) {
 </div>
 
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="input-name" class="col-sm-2 control-label">Park Name</label>
     <div class="col-sm-7">
@@ -61,7 +65,7 @@ if (!empty($_GET)) {
    <div class="form-group">
     <label for="input-location" class="col-sm-2 control-label">Date Established</label>
     <div class="col-sm-7">
-      <input type="date-for-sql" class="form-control" id="location" placeholder="yyyy/mm/dd">
+      <input type="date-for-sql" class="form-control" id="location" placeholder="yyyy-mm-dd">
     </div>
   </div>
 
@@ -71,7 +75,6 @@ if (!empty($_GET)) {
       <input type="area" class="form-control" id="park_area" placeholder="area in acres">
     </div>
   </div>
-
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
