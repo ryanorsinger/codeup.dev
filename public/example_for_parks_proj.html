@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>Sort, yo!</title>
+
+</head>
+<body>
+<p>
+	<a href="?sort_column=foo&amp;sort_order=asc">Click herer to order by FOO ascending</a>
+</p>
+
+<p>
+	<a href="?sort_column=foo&amp;sort_order=desc">Click here to order by FOO descending</a>
+</p>
+
+<? if (!empty($_GET)) : ?>
+	We are sorting <?= $_GET['sort_column'] . ' ' . $_GET['sort_order']; ?>
+<? endif; ?>
+</body>
+</html>

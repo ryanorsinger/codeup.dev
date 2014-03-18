@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>National Parks</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<?php
+require_once 'use_parks_table.php';
+require_once 'mysqli_call.php';
+
+// this gives us back the key=>value pairs of everything from the national_parks table
+$result = $mysqli->query("SELECT * FROM national_parks");
+
+?>
+
+
+</head>
+<body>
+    <h1>National Parks of the USA <small> a CodeUp project for using MySQLi within PHP</small></h1>
+   <br>
+
+
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped" id="park-data">
+        <thead>
+            <tr>
+                <th>Park Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Date Established</th>
+                <th>Area in Acres</th>
+            </tr> 
+            
+            <?php
+                while ($row = $result->fetch_assoc()) {
+                //print_r($row)
+                echo "<tr>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td>" . $row['location'] . "</td>";
+                echo "<td>" . $row['description'] . "</td>";     
+                echo "<td>" . $row['date_established'] . "</td>";
+                echo "<td>" . $row['area_in_acres'] . "</td>";
+                echo "</tr>";
+            ?>
+    </table>
+
+</div>
+
+
+<?php
+
+?>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</head>
