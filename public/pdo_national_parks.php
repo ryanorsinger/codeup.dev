@@ -7,6 +7,7 @@ $dbc = new PDO('mysql:host=127.0.0.1;dbname=codeup_mysqli_test_db', 'codeup', 'p
 // tell PDO to throw exceptions on error (rather than returning FALSE)
 $dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
 // Gather user input, validate input, and sanitizing
 if (!empty($_POST)) {
 
@@ -42,7 +43,7 @@ if (isset($_GET['sort_column']) && (in_array($_GET['sort_column'], $validCols)))
     }
 } 
 
-$result = $stmt->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
+$result = $dbc->query("SELECT name, location, description, date_established, area_in_acres FROM national_parks ORDER BY $sortCol $sortOrder");
     
 
 ?>
@@ -137,7 +138,7 @@ $result = $stmt->query("SELECT name, location, description, date_established, ar
 
 <?php
 
-while ($row = $result->(PDO::FETCH_ASSOC)) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
       echo "<tr>";
       echo "<td>" . $row['name'] . "</td>";
       echo "<td>" . $row['location'] . "</td>";
