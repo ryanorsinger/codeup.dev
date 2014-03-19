@@ -7,17 +7,21 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <title>Exampe jQuery Page</title>
+<style>
+	.clickable {
+		cursor: wait;
+	}
+</style>
 </head>
 <body>
 <div class="container">
- 
-    <h1 id="header1" class="codeup">jQuery for Fun and Profit!</h1>
-	<h2 id="arches" class="codeup">The REAL POWER and CORE of jQuery are the Selectors</h2>
+    <h1 id="header1" class="clickable">jQuery for Fun and Profit!</h1>
+	<h2 id="arches" class="codeup">The real POWER and CORE of jQuery are the Selectors</h2>
 <div container>
-	<p class='parag'>To use any meta-characters as a literal part of a name, it must be escaped with with two backslashes: \\. For example, an element with id="foo.bar", uses the selector $("#foo\\.bar"). </p>
+	<p class='parag'>To use any meta-characters such as !"#$%&amp;'()*+,./:;&lt;=>?@[\]^`{|}~ ) ) as a literal part of a name, it must be escaped with with two backslashes: \\. For example, an element with id="foo.bar", uses the selector $("#foo\\.bar"). </p>
 </div>
 
-<u class="lead" id="basic-selectors"><strong>List of jQuery Selectors</strong>
+<u class="clickable" id="basic-selectors">List of jQuery Selectors
 	<li>* is the All Selector and selects all elements</li>
 	<li>ID Selector #id Selects a single element with the given id attribute.</li>
 	<li>Class Selector .class  Selects all elements with the given class.</li>
@@ -26,22 +30,47 @@
 </ul>
 
 <div style="color:#00F" class="codeup">
-  <h3>This is a heading inside of a div with style color #00F</h3>
-  <p>This is a paragraph inside the same div.</p>
+  <h3>jQuery manipulates the DOM, select things, change things, wait for things, and do things!</h3>
+  <p>Multiple Selectors allow us to have even more control over jQuery selections!</p>
 </div>
 <hr>
 <p class="codeup">Codeup is the BOM and the DOM, baby!</p>	
-<p> another goddamn paragraph</p>
+<p> </p>
 
 </div>
 <script src="js/jquery.js"></script>
 <script type="text/javascript">
-    	$('.codeup').css('background-color', '#FF0');
-    	$('.codeup').css('border', '1px solid #000');
-    	$('#header1').css('background-color', '#0FF');
-    	$('.parag').css('background-color', '#F0F');
-    	$('li').css('border', '0px solid #F00');
-    	$('p').css('border', '12px solid #F00');
+		$('.codeup, #header1, .parag, li, h3').css('background-color', '$FFF').css('border', '1px solid #CCC').css('color', '#000');
+		$('body').css('background-color', '#FFF');
+		
+		$('h1').click(function() {
+    		$('h1').css('background-color', '#FF0');
+
+		});
+
+		
+		$('p').dblclick(function() {
+			$('p').css('font-size', '28px');
+		});
+
+		$('li').hover(
+                function() {
+                    $(this).css('color', '#F00');
+                },
+                function() {
+                    $(this).css('background-color', '#000');
+                }
+		);
+    	// $('.codeup').css('background-color', '#FF0');
+    	// $('.codeup').css('border', '1px solid #000');
+    	// $('#header1').css('background-color', '#0FF');
+    	// $('.parag').css('background-color', '#F0F');
+    	// $('li').css('border', '0px solid #F00');
+    	// //$('p').css('font-size', '33px');
+    	// //$('p').css('border', '12px solid #F00');
+    	// $('h3').css('background-color', '#000');
+    	// var contents = $('h1').html();
+    	// alert(contents);
     	
 </script>
 </body>
