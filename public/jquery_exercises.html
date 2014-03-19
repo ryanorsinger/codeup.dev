@@ -14,7 +14,7 @@
     <h1 id="header1" class="codeup">jQuery for Fun and Profit!</h1>
 	<h2 id="arches" class="codeup">The REAL POWER and CORE of jQuery are the Selectors</h2>
 <div container>
-	<p class='highlight'>To use any meta-characters as a literal part of a name, it must be escaped with with two backslashes: \\. For example, an element with id="foo.bar", uses the selector $("#foo\\.bar"). </p>
+	<p class='parag'>To use any meta-characters as a literal part of a name, it must be escaped with with two backslashes: \\. For example, an element with id="foo.bar", uses the selector $("#foo\\.bar"). </p>
 </div>
 
 <u class="lead" id="basic-selectors"><strong>List of jQuery Selectors</strong>
@@ -29,13 +29,17 @@
   <h3>This is a heading inside of a div with style color #00F</h3>
   <p>This is a paragraph inside the same div.</p>
 </div>
+<hr>
+<p class="codeup">Codeup is the BOM and the DOM, baby!</p>	
 
 </div>
 <script src="js/jquery.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
     	$('.codeup').css('background-color', '#FF0');
+    	$('.codeup').css('border', '22px solid #000');
     	$('#header1').css('background-color', '#0FF');
+    	$('.parag').css('background-color', '#F0F');
     	
     	
 });
