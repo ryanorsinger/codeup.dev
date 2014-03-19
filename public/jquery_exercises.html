@@ -1,0 +1,45 @@
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <title>Exampe jQuery Page</title>
+</head>
+<body>
+<div class="container">
+ 
+    <h1 id="header1" class="codeup">jQuery for Fun and Profit!</h1>
+	<h2 id="arches" class="codeup">The REAL POWER and CORE of jQuery are the Selectors</h2>
+<div container>
+	<p class='highlight'>To use any meta-characters as a literal part of a name, it must be escaped with with two backslashes: \\. For example, an element with id="foo.bar", uses the selector $("#foo\\.bar"). </p>
+</div>
+
+<u class="lead" id="basic-selectors"><strong>List of jQuery Selectors</strong>
+	<li>* is the All Selector and selects all elements</li>
+	<li>ID Selector #id Selects a single element with the given id attribute.</li>
+	<li>Class Selector .class  Selects all elements with the given class.</li>
+	<li>Element Selector element  Selects all elements with the given tag name.</li>
+	<li>Multiple Selector selector1, selector2, selectorN Selects the combined results of all the specified selectors.</li>
+</ul>
+
+<div style="color:#00F" class="codeup">
+  <h3>This is a heading inside of a div with style color #00F</h3>
+  <p>This is a paragraph inside the same div.</p>
+</div>
+
+</div>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('.codeup').css('background-color', '#FF0');
+    	$('#header1').css('background-color', '#0FF');
+    	
+    	
+});
+
+</script>
+</body>
+</html>
