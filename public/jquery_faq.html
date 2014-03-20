@@ -5,17 +5,36 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-<script src="js/jquery.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<style type="text/css" media="screen">
 
-    <title>jQuery FAQ example page</title>
-<style>
-
+    #national-parks, #state-parks-texas, .hide1 {
+         display: none;
+    }
+    
 	.clickable {
 		cursor: pointer;
 	}
 
 </style>
+
+<script src="js/jquery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script>
+
+ $('document').ready(function() {
+    $('#national-parks-toggle').click(function() {
+        $('#national-parks').fadeToggle(675);
+    });
+    $('#state-parks-texas-toggle').click(function() {
+        $('#state-parks-texas').fadeToggle(675);
+    });
+});
+
+</script>
+
+
+    <title>jQuery FAQ example page</title>
+
 </head>
 
 <body>
@@ -25,24 +44,30 @@
 
 <dl>
   <dt>1. When did the idea of a National Park start?</dt>
-  <dd>Remy Sharp</dd>
+  <dd class="hide1">Remy Sharp</dd>
   <dt>2. Who came up with the idea that a nation should have national parks?</dt>
-  <dd>Brandan Lennox</dd>
+  <dd class="hide1">Brandan Lennox</dd>
   <dt>3. What was the first National Park and when was it created?</dt>
-  <dd>Comment</dd>
+  <dd class="hide1">Comment</dd>
 </dl>
 
+<h3 id='lamp'>LAMP+J stack, frameworks, and accessories, ya'll</h3>
 <ul id="dev-list">
     <li>Linux</li>
     <li>Apache</li>
     <li>MySQL</li>
     <li>PHP</li>
     <li>Javascript</li>
-    <li>jQuery</li>
+    <li>jQuery</li>		
     <li>JSON</li>
-    
+    <li>Git</li>
+    <li>HTML5</li>
+    <li>CSS</li>
+    <li>Bootstrap</li>
+    <li>Laravel</li>
 </ul>
-<h3>National Parks</h3>
+
+<h3 id='national-parks-toggle'>National Parks</h3>
 <ul id="national-parks">
     <li>Arches</li>
     <li>Badlands</li>
@@ -51,9 +76,9 @@
     <li>Everglades</li>
     <li>Badlands</li>
     <li>Biscayne</li>
-
 </ul>
-<h3>State Parks of Texas</h3>
+
+<h3 id='state-parks-texas-toggle'>State Parks of Texas</h3>
 <ul id="state-parks-texas">
     <li>Abilene</li>
     <li>Big Bend</li>
@@ -61,37 +86,90 @@
     <li>Davis Mountains</li>
     <li>Enchanted Rock</li>
 </ul>
-
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
+		var li = $('li');
+		var ul = $('ul');
+		var h3 = $('h3');
 
-		$('dt').addClass('clickable');	
-
-		$('dd').addClass('invisible');
-	
-		$('dt').on('click', function() {
-		$(this).next().toggleClass('invisible');
+		li.css('background-color', '#FF0');
+    	li.parent().css('background-color', '#0F0');
+     	
+		ul.each(function() {
+			$(this).children().first().css('font-weight', 'bold');
 		});
 
-		$('#national-parks').children().each(function(index) {
-			if (index % 2 != 0) {
-				$(this).css('background-color', '#CCC');
-			}
-		});
+    $('h3').addClass('clickable');
+    $('dt').addClass('clickable');
+
+    $('#lamp').click(function() {
+        $(this).next().fadeToggle('h1');
+    }); 
+    
+
+    $('dt').click(function() {
+            $(this).next().fadeToggle('dd');
+    });
+
+//     $('li').click(function () {
+//         $(this).parent().hide('ul');
+//     });
+    
+//     $('h3').click(function () {
+//         $(this).next().toggle('ul');
+//     });
+
+//     $('h1').on('load', function() {
+//         $(this).fadeIn(650).next().fadeIn(650);
+//     });
+
+		// $('dt').click(function() {
+		// 	$('dd').toggle();
+		// });
+
+// $('h3').click(function() {
+//         $('ul').each(function() {
+//             $('ul').children().toggle();
+//             });
+//         });
+
+     //  	li.click(function() {    	
+ 			// $(this).parent().addClass('clickable');
+    // 	});
+
+    	//$('ul').addClass('clickable');
+			
+
+
+		// $('dd').addClass('invisible');
+	
+		// $('dt').on('click', function() {
+		// $(this).next().toggleClass('invisible');
+		// });
+
+		// var row = $('li');
+		// row.css('background-color', '#E00');
+		// row.parent().css('background-color', 'F00');
+
+		// $('#national-parks').children().each(function(index) {
+		// 	if (index % 2 != 0) {
+		// 		$(this).css('background-color', '#CCC');
+		// 	}
+		// });
 
 	
-		$('li').parent().css('background-color', '#0F0');
+		// $('li').parent().css('background-color', '#0F0');
 
 
-		$('#state-parks-texas').children().css('background-color', '#0F0');
+		// $('#state-parks-texas').children().css('background-color', '#0F0');
 
 
-		$('li').each(function(index) {
-   			var contents = $(this).html();
-   			console.log(index + '|' + contents);
-   		});
+		// $('li').each(function(index) {
+  //  			var contents = $(this).html();
+  //  			console.log(index + '|' + contents);
+  //  		});
 			// 
    //      		$(this).css('background-color', '#FF0');
    //  		} else $(this).css('background-color', '#F00');
