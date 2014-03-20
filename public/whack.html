@@ -1,0 +1,142 @@
+<html>
+<head>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Shojumaru' rel='stylesheet' type='text/css'>
+	<title>Whack a Kilroy!</title>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<style>
+ 
+		#game-board {
+			margin: 10px auto;
+			width: 456px;
+		}
+ 
+		.mole-hole {
+			border: 1px dashed gray;
+			float: left;
+			height: 100px;
+			width: 100px;
+		}
+ 
+		img {
+			height: 100px;
+			width: 100px;
+			display: none;
+		}
+ 
+		body {
+			text-align: center;
+			background-color: black;
+			color: #CCC;
+			font-family: 'Shojumaru', cursive;
+		}
+ 
+	</style>
+</head>
+<body>
+ 
+	<h1>Whack a Kilroy!</h1>
+ 	<p>Score: <span id="score">0</span></p>
+
+	<div id="game-board">
+
+ 
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+ 
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+ 
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+		<div class="mole-hole">
+			<img src="img/kilroy.jpg">
+		</div>
+ 
+	</div>
+ 
+	<script>
+		var i = 0;
+		var holes = $('.mole-hole');
+		
+		// Keep score
+		var score = 0;
+		// var rand = Math.floor(Math.random() * holes.length);
+		// $(holes[rand]).children().fadeIn(800);
+
+		// hide the image when clicked
+		$('img').click(function() {
+        	$('img').hide();
+    	});
+
+		// Function to show the mole!
+		var refresh = function() {
+		    // Fade out any Kilroys
+		    $('img').fadeOut(250);
+		    
+		    // pick a random hole
+		    var rand = Math.floor(Math.random() * holes.length);
+		    var hole = $(holes[rand]);
+		    
+		    // Kilroy pops up in a random hole
+		    hole.children().fadeIn(200);
+		}    
+
+		// Click event listener for on click
+		$('img').click(function() { 
+		    // Increase score (and show it)
+		    $('#score').html(++score);
+		    // Hide the Kilroy!
+		    $(this).hide();
+		});
+
+		// Game loop (show every n milliseconds)
+		setInterval(refresh, 1500); 
+		
+ 
+	</script>
+ 
+</body>
+</html>
