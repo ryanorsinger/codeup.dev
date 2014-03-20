@@ -1,0 +1,70 @@
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<script src="js/jquery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <title>jQuery FAQ example page</title>
+<style>
+
+	.clickable {
+		cursor: pointer;
+	}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1 id="header1" class="codeup">National Parks FAQ</h1>
+<!-- <button id="toggleBtn">Toggle Answers</button> -->
+
+<dl>
+  <dt>1. When did the idea of a National Park start?</dt>
+  <dd>Remy Sharp</dd>
+  <dt>2. Who came up with the idea that a nation should have national parks?</dt>
+  <dd>Brandan Lennox</dd>
+  <dt>3. What was the first National Park and when was it created?</dt>
+  <dd>Comment</dd>
+</dl>
+
+<ul>
+    <li>Linux</li>
+    <li>Apache</li>
+    <li>MySQL</li>
+    <li>PHP</li>
+    <li>Javascript</li>
+    <li>jQuery</li>
+    
+</ul>
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('dt').addClass('clickable');	
+
+		$('dd').addClass('invisible');
+	
+		$('dt').on('click', function() {
+		$(this).next().toggleClass('invisible');
+		});
+
+		$('li').each(function(index) {
+   			// var = contents = $(this).html();
+   			var contents = $(this).html();
+   			console.log(index + '|' + contents);
+   			
+   			
+    	});
+	});
+
+	
+</script>
+</body>
+</html>
