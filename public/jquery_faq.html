@@ -32,14 +32,34 @@
   <dd>Comment</dd>
 </dl>
 
-<ul>
+<ul id="dev-list">
     <li>Linux</li>
     <li>Apache</li>
     <li>MySQL</li>
     <li>PHP</li>
     <li>Javascript</li>
     <li>jQuery</li>
+    <li>JSON</li>
     
+</ul>
+<h3>National Parks</h3>
+<ul id="national-parks">
+    <li>Arches</li>
+    <li>Badlands</li>
+    <li>Carlsbad Caverns</li>
+    <li>Denali</li>
+    <li>Everglades</li>
+    <li>Badlands</li>
+    <li>Biscayne</li>
+
+</ul>
+<h3>State Parks of Texas</h3>
+<ul id="state-parks-texas">
+    <li>Abilene</li>
+    <li>Big Bend</li>
+    <li>Choke Canyon</li>
+    <li>Davis Mountains</li>
+    <li>Enchanted Rock</li>
 </ul>
 
 </div>
@@ -55,14 +75,29 @@
 		$(this).next().toggleClass('invisible');
 		});
 
+		$('#national-parks').children().each(function(index) {
+			if (index % 2 != 0) {
+				$(this).css('background-color', '#CCC');
+			}
+		});
+
+	
+		$('li').parent().css('background-color', '#0F0');
+
+
+		$('#state-parks-texas').children().css('background-color', '#0F0');
+
+
 		$('li').each(function(index) {
-   			// var = contents = $(this).html();
    			var contents = $(this).html();
    			console.log(index + '|' + contents);
-   			
-   			
-    	});
-	});
+   		});
+			// 
+   //      		$(this).css('background-color', '#FF0');
+   //  		} else $(this).css('background-color', '#F00');
+		
+
+});
 
 	
 </script>
