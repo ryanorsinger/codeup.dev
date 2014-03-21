@@ -5,10 +5,15 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Shojumaru' rel='stylesheet' type='text/css'>
-	<title>Whack a Kilroy!</title>
+	<title>Whack a JFK!</title>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<style>
- 
+
+		#game-over {
+		    padding: 30px 0;
+		    display: none;
+		}
+
 		#game-board {
 			margin: 10px auto;
 			width: 456px;
@@ -20,121 +25,177 @@
 			height: 100px;
 			width: 100px;
 		}
- 
-		img {
+
+		.jfk {
 			height: 100px;
 			width: 100px;
 			display: none;
 		}
- 
+
 		body {
 			text-align: center;
 			background-color: black;
 			color: #CCC;
 			font-family: 'Shojumaru', cursive;
 		}
+
+		button {
+			color: #222;
+
+		}
+
+		#game-board, a:hover {
+			cursor: url(img/target.png), progress 	!important;
+		}
+
  
 	</style>
 </head>
 <body>
  
-	<h1>Whack a Kilroy!</h1>
+	<h1>Whack a JFK!</h1>
  	<p>Score: <span id="score">0</span></p>
+ 	<p>Time left: <span id="timer">0</span></p>
+ 	<p>High Score: <span id="highscore">0</span></p>
+
+ 	<button id="start">Start New Game!</button>
 
 	<div id="game-board">
+ 
+		<div class="mole-hole" id='1'>
+			<img src="img/jfk.png" class="jfk">
 
- 
-		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
 		</div>
-		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+		<div class="mole-hole" id='2'>
+			<img src="img/jfk.png" class="jfk">
 		</div>
-		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+		<div class="mole-hole" id='3'>
+			<img src="img/jfk.png" class="jfk">
 		</div>
  
-		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+		<div class="mole-hole" id='4'>
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
  
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
 		<div class="mole-hole">
-			<img src="img/kilroy.jpg">
+			<img src="img/jfk.png" class="jfk">
 		</div>
- 
 	</div>
+
  
 	<script>
-		var i = 0;
-		var holes = $('.mole-hole');
+	// Keep score and time
+	var score = 0;
+	var start_time = 15;
+	var interval = 0;
+	var highscore = 0;
+	var speed = 1500;
+	var level = 1;
+	var holes = $('.mole-hole');
+
+	$('#timer').html(start_time);
 		
-		// Keep score
-		var score = 0;
-		// var rand = Math.floor(Math.random() * holes.length);
-		// $(holes[rand]).children().fadeIn(800);
+	// Function to show the mole!
+	var show = function() {
+   		// fade out any moles
+    	$('.jfk').fadeOut();
+    	if ($('#timer').html() <= 0) {
+        	stop_game();
+    	} else {
+	    // Get random hole
+	    var rand = Math.floor(Math.random() * holes.length)
+	    var hole = $(holes[rand]);
+	    // Add mole selected hole
+	    hole.children().fadeIn();
+   		}    
+	}
 
-		// hide the image when clicked
-		$('img').click(function() {
-        	$('img').hide();
-    	});
+	// Click event listener
+	$('.jfk').click(function() { 
 
-		// Function to show the mole!
-		var refresh = function() {
-		    // Fade out any Kilroys
-		    $('img').fadeOut(250);
-		    
-		    // pick a random hole
-		    var rand = Math.floor(Math.random() * holes.length);
-		    var hole = $(holes[rand]);
-		    
-		    // Kilroy pops up in a random hole
-		    hole.children().fadeIn(200);
-		}    
+	    // Increase score (and show it)
+	    $('#score').html(++score);
+	    // Highscore, yo
+	    if (score > highscore) {
+	        $('#highscore').html(++highscore);
+	    }
+	    // Level Up!
+	    if (score % 4 == 0) {
+	        $('#level').html(++level);
+	        clearInterval(game_loop);
+	        speed = speed - (speed - Math.floor(speed * .8));
+	        game_loop = setInterval(show, speed);
+	    }
+	    // Hide the mole!
+	    $(this).hide();
+	});
 
-		// Click event listener for on click
-		$('img').click(function() { 
-		    // Increase score (and show it)
-		    $('#score').html(++score);
-		    // Hide the Kilroy!
-		    $(this).hide();
-		});
+	var start_game = function() {
+	    game_loop = setInterval(show, speed);
+	    $('#start').attr('disabled', 'disabled');
+	    $('#game-board').show();
+	    $('#game-over').hide();
+	    $('#score').html(score);
+	    $('#level').html(level);
+	    start_timer();
+	}
 
-		// Game loop (show every n milliseconds)
-		setInterval(refresh, 1500); 
-		
+	var stop_game = function() {
+	    clearInterval(countdown);
+	    clearInterval(game_loop);
+	    $('#score').html('0');
+	    $('#timer').html(start_time);
+	    $('#start').removeAttr('disabled');
+	    $('#game-board').hide();
+	    $('#game-over').show();
+	    speed = 1500;
+	    score = 0;
+	    level = 1;
+	}
+	
+	var start_timer = function() {
+	    countdown = setInterval(function() {
+	        var timer = $('#timer');
+	        current = parseInt(timer.html());
+	        console.log(current);
+	        timer.html(--current);
+	    }, 1000);
+	}
+
+	$('#start').click(start_game);
  
 	</script>
  
